@@ -51,6 +51,7 @@ class MdGenerator(object):
                     if line.strip() == "---":
                         starter = True
                     else:
+                        # seek body content
                         if content_starter:
                              content.append(line)
                         else:
