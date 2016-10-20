@@ -42,7 +42,6 @@ class MdGenerator(object):
             result = {}
             content = []
             for line in f.readlines():
-                print line
                 # skip space line
                 if line.strip() == "":
                     continue
@@ -71,10 +70,13 @@ class MdGenerator(object):
                                 print md_file + ": Wrong syntax, header more than 3 lines!"
                             else:
                                 header = line.strip().split(":", 1)
-                                if header[0] not in ['title', 'date', 'categories']:
+                                if header[0].strip() not in ['title', 'date', 'categories']:
                                     print md_file + ": Wrong syntax, invaild header!"
                                     return
-                                result['header'] = [header[0], header[1]]
+                                header_key = header[0].strip()
+                                header_value = header[1].strip()
+                                result['header'] = {}
+                                result['header'][header_key] = header_value
                                 header_line_num += 1
                         else:
                             print md_file + ": Wrong header syntax, missing ':'!"
@@ -85,12 +87,19 @@ class MdGenerator(object):
         content_files = os.listdir(self.content_path)
         content_md = [x for x in content_files if x.split('.')[1] == 'md']
         for md_file in content_md:
-            html_file = self.html_path + '/' + md_file.split('.md')[0] + '.html'
+            html_file_name = md_file.split('.md')[0] + '.html'
             md_file = self.content_path + '/' + md_file
+
             # if parse faild, md_parsed_file should be None
             md_parsed_file = self._md_parse(md_file)
             if not md_parsed_file:
                 break
+
+            # get the path html should stored in
+            html_file_path = self.html_path + '/' + md_parsed_file['header']['categories']
+            if not os.path.isdir(html_file_path):
+                os.makedirs(html_file_path)
+            html_file = html_file_path + '/' + html_file_name
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_parsed_file['content'])
                 f.write(content)
