@@ -3,25 +3,31 @@ import os
 
 
 class MdGenerator(object):
-    def __init__(self, content_path=None, html_path=None):
+    def __init__(self, content_dir=None, html_dir=None):
         # you should have a dir named content located in same dir with your generate.py
         # and put all your *.md inside
         # or you indicate it yourself
-        if not content_path:
-            self.content_path = os.path.dirname(os.path.abspath(__file__)) + "/content"
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        if not content_dir:
+            self.content_dir = base_dir + "/content"
         else:
-            if os.path.isdir(content_path):
-                self.content_path = content_path
+            if os.path.isdir(content_dir):
+                self.content_dir = content_dir
             else:
                 print "content path doesn't exist!"
 
-        if not html_path:
-            self.html_path = os.path.dirname(os.path.abspath(__file__)) + "/html"
+        # you should have a dir named html located in same dir with your generate.py
+        # all generated html file will been put inside
+        if not html_dir:
+            self.html_dir = base_dir + "/html"
         else:
-            if os.path.isdir(html_path):
-                self.html_path = html_path
+            if os.path.isdir(html_dir):
+                self.html_dir = html_dir
             else:
                 print "html path doesn't exist!"
+
+        self.content_info = {}
+        self.topics_file = base_dir + '/topics.py'
 
     def _md_generate(self, content):
         try:
@@ -40,6 +46,7 @@ class MdGenerator(object):
             content_starter = False
             header_line_num = 0
             result = {}
+            result['header'] = {}
             content = []
             for line in f.readlines():
                 # skip space line
@@ -75,7 +82,6 @@ class MdGenerator(object):
                                     return
                                 header_key = header[0].strip()
                                 header_value = header[1].strip()
-                                result['header'] = {}
                                 result['header'][header_key] = header_value
                                 header_line_num += 1
                         else:
@@ -84,39 +90,53 @@ class MdGenerator(object):
             return result
 
     def md_generate(self):
-        content_files = os.listdir(self.content_path)
+        content_files = os.listdir(self.content_dir)
         content_md = [x for x in content_files if x.split('.')[1] == 'md']
         for md_file in content_md:
             html_file_name = md_file.split('.md')[0] + '.html'
-            md_file = self.content_path + '/' + md_file
+            md_file = self.content_dir + '/' + md_file
 
             # if parse faild, md_parsed_file should be None, so skip it
             md_parsed_file = self._md_parse(md_file)
             if not md_parsed_file:
-                break
+                continue
 
             # get the path html should stored in
-            html_file_path = self.html_path + '/' + md_parsed_file['header']['categories']
+            html_file_path = self.html_dir + '/' + md_parsed_file['header']['categories']
             if not os.path.isdir(html_file_path):
                 os.makedirs(html_file_path)
             html_file = html_file_path + '/' + html_file_name
 
-            # if html_file exist and newer than md file, skip it
+            # store filename:headerinfo into content_info dict
+            self.content_info[md_file] = md_parsed_file['header']
+            # store filename:html_relative_path into content_info dict
+            self.content_info[md_file]['html_file'] = html_file.split(self.html_dir)[1]
+
+            # if html_file exist and newer than md file, skip generate it
             if os.path.isfile(html_file):
                 html_mtime = os.path.getmtime(html_file)
                 md_mtime = os.path.getmtime(md_file)
                 mtime_compare = md_mtime - html_mtime
                 if mtime_compare <= 0:
-                    break
+                    continue
 
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_parsed_file['content'])
                 f.write(content)
 
     def content_index_generate(self):
-        print os.listdir(self.html_path)
+        # create a dict which key is title and value is html_file's path
+        content_index = {}
+        topics_def = "def topics():\n    return topics = "
+        src = self.content_info
+        for md in src.keys():
+            content_index[src[md]['title']] = src[md]['html_file']
+        topics_def = topics_def + str(content_index)
+        with open(self.topics_file, 'w') as f:
+            f.write(topics_def)
 
 
 if __name__ == "__main__":
     markdown_generator = MdGenerator()
     markdown_generator.md_generate()
+    markdown_generator.content_index_generate()
