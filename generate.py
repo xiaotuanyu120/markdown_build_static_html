@@ -104,6 +104,9 @@ class MdGenerator(object):
                 content = self._md_generate(md_parsed_file['content'])
                 f.write(content)
 
+    def content_index_generate(self):
+        print os.listdir(self.html_path)
+
 
 if __name__ == "__main__":
     markdown_generator = MdGenerator()
