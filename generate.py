@@ -90,7 +90,7 @@ class MdGenerator(object):
             html_file_name = md_file.split('.md')[0] + '.html'
             md_file = self.content_path + '/' + md_file
 
-            # if parse faild, md_parsed_file should be None
+            # if parse faild, md_parsed_file should be None, so skip it
             md_parsed_file = self._md_parse(md_file)
             if not md_parsed_file:
                 break
@@ -100,6 +100,15 @@ class MdGenerator(object):
             if not os.path.isdir(html_file_path):
                 os.makedirs(html_file_path)
             html_file = html_file_path + '/' + html_file_name
+
+            # if html_file exist and newer than md file, skip it
+            if os.path.isfile(html_file):
+                html_mtime = os.path.getmtime(html_file)
+                md_mtime = os.path.getmtime(md_file)
+                mtime_compare = md_mtime - html_mtime
+                if mtime_compare <= 0:
+                    break
+
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_parsed_file['content'])
                 f.write(content)
