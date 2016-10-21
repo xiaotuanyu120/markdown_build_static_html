@@ -101,6 +101,15 @@ class MdGenerator(object):
             if not md_parsed_file:
                 continue
 
+            # check categories is vaild or not
+            categories = md_parsed_file['header']['categories']
+            if categories == '':
+                print md_file + ": Wrong categories syntax! should not be blank!"
+                continue
+            if len(categories.split('/')) > 2:
+                print md_file + ": Wrong categories syntax! at most 2 level!"
+                continue
+
             # get the path html should stored in
             html_file_path = self.html_dir + '/' + md_parsed_file['header']['categories']
             if not os.path.isdir(html_file_path):
@@ -130,7 +139,18 @@ class MdGenerator(object):
         topics_def = "def topics():\n    return topics = "
         src = self.content_info
         for md in src.keys():
-            content_index[src[md]['title']] = src[md]['html_file']
+            title = src[md]['title']
+            html_file = src[md]['html_file']
+            sort = html_file.split('/')
+            sort_len = len(sort)
+            if sort_len == 3:
+                content_index[sort[1]].append([title, html_file])
+            elif sort_len == 4:
+                if not sort[1] in content_index.keys():
+                    content_index[sort[1]] = {}
+                if not sort[2] in content_index[sort[1]].keys():
+                    content_index[sort[1]][sort[2]] = []
+                content_index[sort[1]][sort[2]].append([title, html_file])
         topics_def = topics_def + str(content_index)
         with open(self.topics_file, 'w') as f:
             f.write(topics_def)
