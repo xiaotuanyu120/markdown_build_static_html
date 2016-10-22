@@ -131,6 +131,9 @@ class MdGenerator(object):
 
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_parsed_file['content'])
+                begin_template = "{% extends 'topic_form.html' %}\n{% block topic %}\n"
+                end_template = "\n{% endblock %}"
+                content = begin_template + content + end_template
                 f.write(content)
 
     def content_index_generate(self):
