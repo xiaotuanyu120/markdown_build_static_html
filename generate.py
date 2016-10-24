@@ -3,16 +3,16 @@ import os
 
 
 class MdGenerator(object):
-    def __init__(self, content_dir=None, html_dir=None):
+    def __init__(self, md_dir=None, html_dir=None):
         # you should have a dir named content located in same dir with your generate.py
         # and put all your *.md inside
         # or you indicate it yourself
         base_dir = os.path.dirname(os.path.abspath(__file__))
-        if not content_dir:
-            self.content_dir = base_dir + "/content"
+        if not md_dir:
+            self.md_dir = base_dir + "/content"
         else:
-            if os.path.isdir(content_dir):
-                self.content_dir = content_dir
+            if os.path.isdir(md_dir):
+                self.md_dir = md_dir
             else:
                 print "content path doesn't exist!"
 
@@ -24,100 +24,112 @@ class MdGenerator(object):
             if os.path.isdir(html_dir):
                 self.html_dir = html_dir
             else:
-                print "html path doesn't exist!"
+                os.makedirs(html_dir)
 
         self.content_info = {}
         self.topics_file = base_dir + '/topics.py'
 
+    def _md_file_filter(self, dir_path):
+        all_files = os.listdir(dir_path)
+        md_files = [x for x in all_files if x.split('.')[-1] == 'md']
+        return md_files
+
     def _md_generate(self, content):
+        renderer = mistune.Renderer(escape=False, hard_wrap=False)
         try:
-            content = mistune.Markdown()(content)
+            content = mistune.Markdown(renderer=renderer)(content)
         except TypeError as e:
             print "STOP PROCESSING: " + str(e)
             return
         return content
 
-    def _md_parse(self, md_file):
+    def _parse_header(self, md_file):
         with open(md_file, 'r') as f:
-            # header must less than 3 lines,
+            # header must less than 4 rows,
             # first "---" means start
             # second "---" means end
-            starter = False
-            content_starter = False
-            header_line_num = 0
+            row_num = 0
+            header_list = ['title', 'date', 'categories', 'tags']
             result = {}
-            result['header'] = {}
+            content = []
+            for row in f.readlines():
+                # skip space row
+                if row.strip() == "":
+                    continue
+                row_num += 1
+                if row_num == 1:
+                    if not row.strip() == "---":
+                        print md_file + "(Missing header start tag: '---'!)"
+                        return
+                elif 1 < row_num < 6:
+                    if not ":" in row:
+                        print md_file + "(Missing header seperate tag: ':'!)"
+                        return
+                    key, value = row.strip().split(":", 1)
+                    header_key = key.strip()
+                    header_value = value.strip()
+                    if not header_key in header_list:
+                        print md_file + "(Invaild header!)"
+                        return
+                    else:
+                        result[header_key] = header_value
+                        header_list.remove(header_key)
+                elif row_num == 6:
+                    if not row.strip() == "---":
+                        print md_file + "(Missing header end tag: '---'!)"
+                        return
+                    else:
+                        return result
+                else:
+                    print md_file + "(Header should be 4 rows!)"
+                    return
+
+    def _get_content(self, md_file):
+        with open(md_file, 'r') as f:
+            row_num = 0
             content = []
             for line in f.readlines():
                 # skip space line
                 if line.strip() == "":
                     continue
-                # seek start line
-                if not starter:
-                    if line.strip() == "---":
-                        starter = True
-                    else:
-                        # seek body content
-                        if content_starter:
-                             content.append(line)
-                        else:
-                            print md_file + ": Wrong syntax, should start with '---'!"
-                            return
-                else:
-                    # seek end line
-                    if line.strip() == "---":
-                        if header_line_num == 3:
-                            starter = False
-                            content_starter = True
-                        else:
-                            print md_file + ": Wrong syntax, header less than 3 lines!"
-                    else:
-                        if ":" in line:
-                            if header_line_num > 2:
-                                print md_file + ": Wrong syntax, header more than 3 lines!"
-                            else:
-                                header = line.strip().split(":", 1)
-                                if header[0].strip() not in ['title', 'date', 'categories']:
-                                    print md_file + ": Wrong syntax, invaild header!"
-                                    return
-                                header_key = header[0].strip()
-                                header_value = header[1].strip()
-                                result['header'][header_key] = header_value
-                                header_line_num += 1
-                        else:
-                            print md_file + ": Wrong header syntax, missing ':'!"
-            result['content'] = ''.join(content)
+                row_num += 1
+                if row_num > 6:
+                    content.append(line)
+            result = content
             return result
 
+    def _check_categories(self, categories):
+        if categories == '':
+            print md_file + "(Categories should not be blank!)"
+            return
+        if len(categories.split('/')) > 2:
+            print md_file + "(Wrong categories syntax! at most 2 level!)"
+            return
+        return True
+
     def md_generate(self):
-        content_files = os.listdir(self.content_dir)
-        content_md = [x for x in content_files if x.split('.')[1] == 'md']
-        for md_file in content_md:
+        md_files = self._md_file_filter(self.md_dir)
+        for md_file in md_files:
             html_file_name = md_file.split('.md')[0] + '.html'
-            md_file = self.content_dir + '/' + md_file
+            md_file = self.md_dir + '/' + md_file
 
-            # if parse faild, md_parsed_file should be None, so skip it
-            md_parsed_file = self._md_parse(md_file)
-            if not md_parsed_file:
+            # parse and check header
+            md_header = self._parse_header(md_file)
+            if not md_header:
                 continue
 
-            # check categories is vaild or not
-            categories = md_parsed_file['header']['categories']
-            if categories == '':
-                print md_file + ": Wrong categories syntax! should not be blank!"
+            # check categories's syntax and prepare categories folder
+            categories = md_header['categories']
+            if not self._check_categories(categories):
                 continue
-            if len(categories.split('/')) > 2:
-                print md_file + ": Wrong categories syntax! at most 2 level!"
-                continue
-
             # get the path html should stored in
-            html_file_path = self.html_dir + '/' + md_parsed_file['header']['categories']
-            if not os.path.isdir(html_file_path):
-                os.makedirs(html_file_path)
-            html_file = html_file_path + '/' + html_file_name
+            categories_path = self.html_dir + '/' + categories
+            if not os.path.isdir(categories_path):
+                os.makedirs(categories_path)
+            html_file = categories_path + '/' + html_file_name
 
             # store filename:headerinfo into content_info dict
-            self.content_info[md_file] = md_parsed_file['header']
+            self.content_info[md_file] = md_header
             # store filename:html_relative_path into content_info dict
             self.content_info[md_file]['html_file'] = html_file.split(self.html_dir)[1]
 
@@ -129,32 +141,38 @@ class MdGenerator(object):
                 if mtime_compare <= 0:
                     continue
 
+            md_content = self._get_content(md_file)
             with open(html_file, 'w') as f:
-                content = self._md_generate(md_parsed_file['content'])
+                content = []
+                for i in md_content:
+                    # if '> ' in i:
+                    #     j = ''
+                    content.append(self._md_generate(i))
+                content = ''.join(content)
                 begin_template = "{% extends 'topic_form.html' %}\n{% block topic %}\n"
                 end_template = "\n{% endblock %}"
                 content = begin_template + content + end_template
                 f.write(content)
 
-    def content_index_generate(self):
+    def index_generate(self):
         # create a dict which key is title and value is html_file's path
-        content_index = {}
+        index = {}
         topics_def = "def topics():\n    return topics = "
-        src = self.content_info
-        for md in src.keys():
-            title = src[md]['title']
-            html_file = src[md]['html_file']
+        html_name = self.content_info
+        for html_key in html_name.keys():
+            title = html_name[html_key]['title']
+            html_file = html_name[html_key]['html_file']
             sort = html_file.split('/')
             sort_len = len(sort)
             if sort_len == 3:
-                content_index[sort[1]].append([title, html_file])
+                index[sort[1]].append([title, html_file])
             elif sort_len == 4:
-                if not sort[1] in content_index.keys():
-                    content_index[sort[1]] = {}
-                if not sort[2] in content_index[sort[1]].keys():
-                    content_index[sort[1]][sort[2]] = []
-                content_index[sort[1]][sort[2]].append([title, html_file])
-        topics_def = topics_def + str(content_index)
+                if not sort[1] in index.keys():
+                    index[sort[1]] = {}
+                if not sort[2] in index[sort[1]].keys():
+                    index[sort[1]][sort[2]] = []
+                index[sort[1]][sort[2]].append([title, html_file])
+        topics_def = topics_def + str(index)
         with open(self.topics_file, 'w') as f:
             f.write(topics_def)
 
@@ -162,4 +180,4 @@ class MdGenerator(object):
 if __name__ == "__main__":
     markdown_generator = MdGenerator()
     markdown_generator.md_generate()
-    markdown_generator.content_index_generate()
+    markdown_generator.index_generate()
