@@ -112,12 +112,12 @@ class MdGenerator(object):
             result = ''.join(content)
             return result
 
-    def _categories_check(self, categories):
+    def _categories_check(self, md_file, categories):
         if categories == '':
             print md_file + "(Categories should not be blank!)"
             return
-        if len(categories.split('/')) > 2:
-            print md_file + "(Wrong categories syntax! at most 2 level!)"
+        if not len(categories.split('/')) == 2:
+            print md_file + "(Wrong categories syntax! should be 2 level!)"
             return
         return True
 
@@ -134,7 +134,7 @@ class MdGenerator(object):
 
             # check categories's syntax and prepare categories folder
             categories = md_header['categories']
-            if not self._categories_check(categories):
+            if not self._categories_check(md_file, categories):
                 continue
             # get the path html should stored in
             categories_path = self.html_dir + '/' + categories
@@ -164,25 +164,24 @@ class MdGenerator(object):
                 content = begin_template + content + end_template
                 f.write(content)
 
-    def index_generate(self):
-        # create a dict which key is title and value is html_file's path
+    def _html_cat_parse(self, html_info):
         index = {}
-        topics_def = "def topics():\n    return topics = "
-        html_name = self.content_info
-        for html_key in html_name.keys():
-            title = html_name[html_key]['title']
-            html_file = html_name[html_key]['html_file']
-            sort = html_file.split('/')
-            sort_len = len(sort)
-            if sort_len == 3:
-                index[sort[1]].append([title, html_file])
-            elif sort_len == 4:
-                if not sort[1] in index.keys():
-                    index[sort[1]] = {}
-                if not sort[2] in index[sort[1]].keys():
-                    index[sort[1]][sort[2]] = []
-                index[sort[1]][sort[2]].append([title, html_file])
-        topics_def = topics_def + str(index)
+        for html_name in html_info.keys():
+            title = html_info[html_name]['title']
+            html_file = html_info[html_name]['html_file']
+            cat_base, cat_child = html_file.split('/')[1:-1]
+            if not cat_base in index.keys():
+                index[cat_base] = {}
+            if not cat_child in index[cat_base].keys():
+                index[cat_base][cat_child] = []
+            index[cat_base][cat_child].append([title, html_file])
+        result = str(index).replace(']', ']\n')
+        return result
+
+    def topic_index(self):
+        index = self._html_cat_parse(self.content_info)
+        topics_def_temp = "def topics():\n    return topics = "
+        topics_def = topics_def_temp + index
         with open(self.topics_file, 'w') as f:
             f.write(topics_def)
 
@@ -190,4 +189,4 @@ class MdGenerator(object):
 if __name__ == "__main__":
     markdown_generator = MdGenerator()
     markdown_generator.md_generate()
-    markdown_generator.index_generate()
+    markdown_generator.topic_index()
