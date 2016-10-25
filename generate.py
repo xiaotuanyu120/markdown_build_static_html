@@ -1,5 +1,19 @@
-import mistune
 import os
+
+import mistune
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import html
+
+
+class HighlightRenderer(mistune.Renderer):
+    def block_code(self, code, lang):
+        if not lang:
+            return '\n<pre><code>%s</code></pre>\n' % \
+                mistune.escape(code)
+        lexer = get_lexer_by_name(lang, stripall=True)
+        formatter = html.HtmlFormatter()
+        return highlight(code, lexer, formatter)
 
 
 class MdGenerator(object):
@@ -34,8 +48,7 @@ class MdGenerator(object):
         md_files = [x for x in all_files if x.split('.')[-1] == 'md']
         return md_files
 
-    def _md_generate(self, content):
-        renderer = mistune.Renderer(escape=False, hard_wrap=False)
+    def _md_generate(self, content, renderer):
         try:
             content = mistune.Markdown(renderer=renderer)(content)
         except TypeError as e:
@@ -43,7 +56,7 @@ class MdGenerator(object):
             return
         return content
 
-    def _parse_header(self, md_file):
+    def _header_parse(self, md_file):
         with open(md_file, 'r') as f:
             # header must less than 4 rows,
             # first "---" means start
@@ -84,21 +97,22 @@ class MdGenerator(object):
                     print md_file + "(Header should be 4 rows!)"
                     return
 
-    def _get_content(self, md_file):
+    def _md_content(self, md_file):
         with open(md_file, 'r') as f:
             row_num = 0
             content = []
             for line in f.readlines():
                 # skip space line
                 if line.strip() == "":
+                    content.append(line)
                     continue
                 row_num += 1
                 if row_num > 6:
                     content.append(line)
-            result = content
+            result = ''.join(content)
             return result
 
-    def _check_categories(self, categories):
+    def _categories_check(self, categories):
         if categories == '':
             print md_file + "(Categories should not be blank!)"
             return
@@ -114,13 +128,13 @@ class MdGenerator(object):
             md_file = self.md_dir + '/' + md_file
 
             # parse and check header
-            md_header = self._parse_header(md_file)
+            md_header = self._header_parse(md_file)
             if not md_header:
                 continue
 
             # check categories's syntax and prepare categories folder
             categories = md_header['categories']
-            if not self._check_categories(categories):
+            if not self._categories_check(categories):
                 continue
             # get the path html should stored in
             categories_path = self.html_dir + '/' + categories
@@ -141,14 +155,10 @@ class MdGenerator(object):
                 if mtime_compare <= 0:
                     continue
 
-            md_content = self._get_content(md_file)
+            md_content = self._md_content(md_file)
+            renderer = HighlightRenderer()
             with open(html_file, 'w') as f:
-                content = []
-                for i in md_content:
-                    # if '> ' in i:
-                    #     j = ''
-                    content.append(self._md_generate(i))
-                content = ''.join(content)
+                content = self._md_generate(md_content, renderer)
                 begin_template = "{% extends 'topic_form.html' %}\n{% block topic %}\n"
                 end_template = "\n{% endblock %}"
                 content = begin_template + content + end_template
