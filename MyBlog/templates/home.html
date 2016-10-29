@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Python Programming Tutorials</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ url_for('static', filename='css/mycss.css') }}" rel="stylesheet">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+	<div class="container">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">XIAO5TECH</a>
+        </div>
+				<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="{{ home_active }} nav-item"><a href="/">Home</a></li>
+					<li class="{{ linux_active }} nav-item"><a href="/linux_basic">linux</a></li>
+					<li class="{{ python_active }} nav-item"><a href="#">python</a></li>
+					<li class="{{ devops_active }} nav-item"><a href="#">devops</a></li>
+				</ul>
+				</div>
+			</div>
+		</nav>
+	<!-- <div class="container col-xs-12 col-md-8 col-md-offset-2" align="center" style="min-heigh=100%"> -->
+		{% block body %}
+		{% endblock %}
+	<!-- </div> -->
+	</div>
+</body>
+
+</html>
