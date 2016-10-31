@@ -24,7 +24,7 @@ class MdGenerator(object):
         # or you indicate it yourself
         base_dir = os.path.dirname(os.path.abspath(__file__))
         if not md_dir:
-            self.md_dir = base_dir + "/content"
+            self.md_dir = base_dir + "/Myblog/markdown"
         else:
             if os.path.isdir(md_dir):
                 self.md_dir = md_dir
@@ -34,7 +34,7 @@ class MdGenerator(object):
         # you should have a dir named html located in same dir with your generate.py
         # all generated html file will been put inside
         if not html_dir:
-            self.html_dir = base_dir + "/html"
+            self.html_dir = base_dir + "/Myblog/html"
         else:
             if os.path.isdir(html_dir):
                 self.html_dir = html_dir
@@ -42,7 +42,7 @@ class MdGenerator(object):
                 os.makedirs(html_dir)
 
         self.content_info = {}
-        self.topics_file = base_dir + '/topics.py'
+        self.topics_file = base_dir + '/Myblog/topics.py'
 
     def _md_file_filter(self, dir_path):
         all_files = os.listdir(dir_path)
@@ -168,21 +168,22 @@ class MdGenerator(object):
     def _html_cat_parse(self, html_info):
         index = {}
         for html_name in html_info.keys():
-            title = html_info[html_name]['title']
-            html_file = html_info[html_name]['html_file']
+            title = unicode(html_info[html_name]['title'], 'utf-8')
+            html_file = unicode(html_info[html_name]['html_file'], 'utf-8')
             cat_base, cat_child = html_file.split('/')[1:-1]
             if not cat_base in index.keys():
                 index[cat_base] = {}
             if not cat_child in index[cat_base].keys():
                 index[cat_base][cat_child] = []
             index[cat_base][cat_child].append([title, html_file])
-        result = str(index).replace(']', ']\n')
+        result = str(index).replace(']', ']\n    ')
         return result
 
     def topic_index(self):
         index = self._html_cat_parse(self.content_info)
-        topics_def_temp = "def topics():\n    return topics = "
-        topics_def = topics_def_temp + index
+        topics_def_temp = "def topics():\n    topics = "
+        topics_def_end = "\n    return topics"
+        topics_def = topics_def_temp + index + topics_def_end
         with open(self.topics_file, 'w') as f:
             f.write(topics_def)
 
