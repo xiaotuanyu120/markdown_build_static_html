@@ -2,7 +2,7 @@
 
 function stop(){
     pid=`ps aux|grep uwsgi|grep 'S '|awk '{print $2}'`
-    kill -9 pid;
+    kill -9 $pid;
 }
 
 function start(){
