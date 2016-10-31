@@ -1,4 +1,3 @@
-content
-html
-topics.py
+html/*
 *.pyc
+nohup.out
