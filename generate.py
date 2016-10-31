@@ -24,7 +24,7 @@ class MdGenerator(object):
         # or you indicate it yourself
         base_dir = os.path.dirname(os.path.abspath(__file__))
         if not md_dir:
-            self.md_dir = base_dir + "/Myblog/markdown"
+            self.md_dir = base_dir + "/Myblog/post"
         else:
             if os.path.isdir(md_dir):
                 self.md_dir = md_dir
@@ -160,8 +160,25 @@ class MdGenerator(object):
             renderer = HighlightRenderer()
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_content, renderer)
-                begin_template = "{% extends 'topic_form.html' %}\n{% block topic %}\n"
-                end_template = "\n{% endblock %}"
+                begin_template = """
+<html>
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <meta name="description" content="linux python">
+      <meta name="author" content="Peiwu Zhao">
+      <meta name="Keywords" content="python,linux">
+      <title>xiao5tech</title>
+
+      <link rel="shortcut icon" href="/static/favicon.ico">
+      <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <div class='container'>"""
+                end_template = """
+    </div>
+        </html>"""
                 content = begin_template + content + end_template
                 f.write(content)
 
@@ -169,13 +186,14 @@ class MdGenerator(object):
         index = {}
         for html_name in html_info.keys():
             title = unicode(html_info[html_name]['title'], 'utf-8')
-            html_file = unicode(html_info[html_name]['html_file'], 'utf-8')
+            html_file = html_info[html_name]['html_file']
             cat_base, cat_child = html_file.split('/')[1:-1]
+            html_path = unicode('/html' + html_file, 'utf-8')
             if not cat_base in index.keys():
                 index[cat_base] = {}
             if not cat_child in index[cat_base].keys():
                 index[cat_base][cat_child] = []
-            index[cat_base][cat_child].append([title, html_file])
+            index[cat_base][cat_child].append([title, html_path])
         result = str(index).replace(']', ']\n    ')
         return result
 
