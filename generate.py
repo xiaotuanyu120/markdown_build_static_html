@@ -24,7 +24,7 @@ class MdGenerator(object):
         # or you indicate it yourself
         base_dir = os.path.dirname(os.path.abspath(__file__))
         if not md_dir:
-            self.md_dir = base_dir + "/Myblog/post"
+            self.md_dir = base_dir + "/MyBlog/post"
         else:
             if os.path.isdir(md_dir):
                 self.md_dir = md_dir
@@ -34,7 +34,7 @@ class MdGenerator(object):
         # you should have a dir named html located in same dir with your generate.py
         # all generated html file will been put inside
         if not html_dir:
-            self.html_dir = base_dir + "/Myblog/templates/html"
+            self.html_dir = base_dir + "/MyBlog/templates/html"
         else:
             if os.path.isdir(html_dir):
                 self.html_dir = html_dir
@@ -42,7 +42,7 @@ class MdGenerator(object):
                 os.makedirs(html_dir)
 
         self.content_info = {}
-        self.topics_file = base_dir + '/Myblog/topics.py'
+        self.topics_file = base_dir + '/MyBlog/topics.py'
 
     def _md_file_filter(self, dir_path):
         all_files = os.listdir(dir_path)
