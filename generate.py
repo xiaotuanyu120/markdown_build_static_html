@@ -178,7 +178,7 @@ class MdGenerator(object):
     <div class='container'>"""
                 end_template = """
     </div>
-        </html>"""
+</html>"""
                 content = begin_template + content + end_template
                 f.write(content)
 
