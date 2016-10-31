@@ -13,3 +13,7 @@ def homepage():
 def content(cat1, cat2, topic):
     page = '/'.join(['/html', cat1, cat2, topic])
     return render_template(page, TOPIC_DICT = TOPIC_DICT)
+
+@app.route('/contact')
+def homepage():
+    return render_template("contact.html", TOPIC_DICT = TOPIC_DICT)
