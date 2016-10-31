@@ -34,7 +34,7 @@ class MdGenerator(object):
         # you should have a dir named html located in same dir with your generate.py
         # all generated html file will been put inside
         if not html_dir:
-            self.html_dir = base_dir + "/Myblog/html"
+            self.html_dir = base_dir + "/Myblog/templates/html"
         else:
             if os.path.isdir(html_dir):
                 self.html_dir = html_dir
