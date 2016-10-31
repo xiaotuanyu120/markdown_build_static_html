@@ -1,42 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Python Programming Tutorials</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static', filename='css/mycss.css') }}" rel="stylesheet">
-	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-</head>
+{% extends "index.html" %}
+{% block body %}
+<h3><p class="text-center">linux运维说明书 V0.1</p></h3>
+<p>这是一个linux知识总结网站，之前站长使用的是笔记类型的工具来记录它们。
+	但是文章多了，查找和对文章的分类太繁杂。<br>
+	于是整理了这个网站，主要用来自己查询和记录，如果能给大家带来一些便利，荣幸之至。</p>
 
-<body>
-	<div class="container">
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">XIAO5TECH</a>
-        </div>
-				<div id="navbar" class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="{{ home_active }} nav-item"><a href="/">Home</a></li>
-					<li class="{{ linux_active }} nav-item"><a href="/linux_basic">linux</a></li>
-					<li class="{{ python_active }} nav-item"><a href="#">python</a></li>
-					<li class="{{ devops_active }} nav-item"><a href="#">devops</a></li>
-				</ul>
-				</div>
-			</div>
-		</nav>
-	<!-- <div class="container col-xs-12 col-md-8 col-md-offset-2" align="center" style="min-heigh=100%"> -->
-		{% block body %}
-		{% endblock %}
-	<!-- </div> -->
-	</div>
-</body>
-
-</html>
+<p>持续整理中</p>
+{% endblock %}

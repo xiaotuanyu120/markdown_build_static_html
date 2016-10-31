@@ -160,25 +160,8 @@ class MdGenerator(object):
             renderer = HighlightRenderer()
             with open(html_file, 'w') as f:
                 content = self._md_generate(md_content, renderer)
-                begin_template = """
-<html>
-    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <meta name="description" content="linux python">
-      <meta name="author" content="Peiwu Zhao">
-      <meta name="Keywords" content="python,linux">
-      <title>xiao5tech</title>
-
-      <link rel="shortcut icon" href="/static/favicon.ico">
-      <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    </head>
-    <div class='container'>"""
-                end_template = """
-    </div>
-</html>"""
+                begin_template = "{% extends 'index.html' %}\n{% block md %}\n"
+                end_template = "{% endblock %}"
                 content = begin_template + content + end_template
                 f.write(content)
 

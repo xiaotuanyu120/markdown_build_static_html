@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return render_template("index.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("home.html", TOPIC_DICT = TOPIC_DICT)
 
 @app.route('/html/<cat1>/<cat2>/<topic>')
 def content(cat1, cat2, topic):
     page = '/'.join(['/html', cat1, cat2, topic])
-    return render_template(page)
+    return render_template(page, TOPIC_DICT = TOPIC_DICT)
