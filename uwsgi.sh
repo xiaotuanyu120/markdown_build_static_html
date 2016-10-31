@@ -12,14 +12,14 @@ function start(){
 
 case $1 in
     stop)
-        stop();
+        stop()
     ;;
     start)
-        start();
+        start()
     ;;
     restart)
-        stop();
+        stop()
         sleep 1;
-        start();
+        start()
     ;;
 esac
