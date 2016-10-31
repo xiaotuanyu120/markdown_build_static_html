@@ -15,5 +15,5 @@ def content(cat1, cat2, topic):
     return render_template(page, TOPIC_DICT = TOPIC_DICT)
 
 @app.route('/contact')
-def homepage():
+def contact():
     return render_template("contact.html", TOPIC_DICT = TOPIC_DICT)
