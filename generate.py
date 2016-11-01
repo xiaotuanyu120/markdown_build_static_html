@@ -183,6 +183,7 @@ class MdGenerator(object):
             if not cat_child in index[cat_base].keys():
                 index[cat_base][cat_child] = []
             index[cat_base][cat_child].append([title, html_path])
+            index[cat_base][cat_child] = sorted(index[cat_base][cat_child], key=lambda name: name[0])
         result = str(index).replace(']', ']\n    ')
         return result
 
