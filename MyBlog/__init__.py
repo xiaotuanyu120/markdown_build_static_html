@@ -13,17 +13,22 @@ def homepage():
 
 @app.route('/linux')
 def linux():
-    return render_template("linux.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("linux_basic.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/python')
 def python():
-    return render_template("python.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("python_advance.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/django')
 def django():
-    return render_template("django.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("python_django.html", TOPIC_DICT = TOPIC_DICT)
+
+
+@app.route('/mysql')
+def mysql():
+    return render_template("linux_mysql.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/html/<cat1>/<cat2>/<topic>')
