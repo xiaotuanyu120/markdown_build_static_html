@@ -1,63 +1,9 @@
+{% extends "base.html" %}
+	{% block body %}
+  <div class="col-md-12">
+		<h3><p class="text-center">linux运维说明书 V0.1</p></h3>
+		<p>这是一个linux知识总结网站，之前站长使用的是笔记类型的工具来记录它们。但是文章多了，查找和对文章的分类太繁杂。于是整理了这个网站，主要用来自己查询和记录，如果能给大家带来一些便利，荣幸之至。</p>
 
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <meta name="description" content="linux python">
-  <meta name="author" content="Peiwu Zhao">
-  <meta name="Keywords" content="python,linux">
-
-  <!-- <link rel="icon" href="../../favicon.ico"> -->
-
-  <title>xiao5tech</title>
-
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-</head>
-
-<body>
-
-  <div class="container" style="height=100%">
-    <div class="row" style="height:90px;border-bottom:1px solid #987cb9;">
-      <div>
-        <h1 class="text-center">linux运维说明书</h1>
-      </div>
-      <div>
-        <p>
-          <ul class="list-inline" style="padding-left:20px;">
-            <li><a href="/">首页</a></li>
-            <li><a href="/linux">linux基础</a></li>
-          </ul>
-        </p>
-      </div>
-    </div>
-
-    <div class="row" style="height:100%;margin-top:3px;padding-bottom:30px;min-height:650px">
-      <div class="col-md-12">
-				<h3><p class="text-center">linux运维说明书 V0.1</p></h3>
-				<p>这是一个linux知识总结网站，之前站长使用的是笔记类型的工具来记录它们。但是文章多了，查找和对文章的分类太繁杂。于是整理了这个网站，主要用来自己查询和记录，如果能给大家带来一些便利，荣幸之至。</p>
-
-				<p>持续整理中</p>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-4"></div>
-        <div class="col-md-4">
-           <ul class="list-inline">
-             <li><a href="">关于</a></li>
-             <li><a>linux运维说明书</a></li>
-             <li><a href="/contact">联系我们</a></li>
-           </ul>
-        </div>
-      <div class="col-md-4"></div>
-    </div>
-
-  </div> <!--close container-->
-
-</body>
-</html>
+		<p>持续整理中</p>
+  </div>
+	{% endblock %}
