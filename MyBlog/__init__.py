@@ -16,9 +16,9 @@ def linux():
     return render_template("linux_basic.html", TOPIC_DICT = TOPIC_DICT)
 
 
-# @app.route('/commonly_services')
-# def linux():
-#     return render_template("linux_commonly_services.html", TOPIC_DICT = TOPIC_DICT)
+@app.route('/commonly_services')
+def linux():
+    return render_template("linux_commonly_services.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/python')
