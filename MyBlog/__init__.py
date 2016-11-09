@@ -17,7 +17,7 @@ def linux():
 
 
 @app.route('/commonly_services')
-def linux():
+def commonly_services():
     return render_template("linux_commonly_services.html", TOPIC_DICT = TOPIC_DICT)
 
 
