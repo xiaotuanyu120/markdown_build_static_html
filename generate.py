@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import re
 
 import mistune
 import codecs
@@ -183,9 +184,19 @@ class MdGenerator(object):
             if not cat_child in index[cat_base].keys():
                 index[cat_base][cat_child] = []
             index[cat_base][cat_child].append([title, html_path])
-            index[cat_base][cat_child] = sorted(index[cat_base][cat_child], key=lambda name: name[1])
+            # index[cat_base][cat_child] = sorted(index[cat_base][cat_child], key=lambda name: name[1])
+            index[cat_base][cat_child].sort(key = self._sort_key)
         result = str(index).replace(']', ']\n    ')
         return result
+
+    def _tryint(self, input):
+        try:
+            return int(input)
+        except:
+            return input
+
+    def _sort_key(self, in_list):
+        return [ self._tryint(c) for c in re.split('([0-9]+)', in_list[0]) ]
 
     def topic_index(self):
         index = self._html_cat_parse(self.content_info)
