@@ -165,7 +165,8 @@ class MdGenerator(object):
             content = self._md_generate(md_content, renderer)
             if content:
                 with codecs.open(html_file, 'w', encoding='utf8') as f:
-                    begin_template = "{% extends 'index.html' %}\n{% block md %}\n"
+                    extend_file = '_'.join(categories.split('/')) + '.html'
+                    begin_template = "{% extends '" + extend_file + "' %}\n{% block md %}\n"
                     end_template = "{% endblock %}"
                     content = begin_template + content + end_template
                     f.write(content)
