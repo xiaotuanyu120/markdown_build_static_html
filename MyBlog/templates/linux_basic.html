@@ -3,9 +3,17 @@
 {% block content_list %}
 <ul class="list-unstyled">
 	<li>linux基础</li>
-	<p>---------------------------------------------</p>
+	<p>--------------------------------------</p>
 	<div class="list-group">
 		{% for t in TOPIC_DICT['linux']['basic'] %}
+		<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
+		{% endfor %}
+	</div>
+
+	<li>linux常用工具及服务</li>
+	<p>--------------------------------------</p>
+	<div class="list-group">
+		{% for t in TOPIC_DICT['linux']['commonly_services'] %}
 		<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
 		{% endfor %}
 	</div>
