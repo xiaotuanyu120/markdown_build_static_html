@@ -36,6 +36,11 @@ def mysql():
     return render_template("linux_mysql.html", TOPIC_DICT = TOPIC_DICT)
 
 
+@app.route('/web')
+def web():
+    return render_template("web_node.js.html", TOPIC_DICT = TOPIC_DICT)
+
+
 @app.route('/html/<cat1>/<cat2>/<topic>')
 def content(cat1, cat2, topic):
     page = '/'.join(['/html', cat1, cat2, topic])
