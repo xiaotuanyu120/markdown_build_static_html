@@ -6,3 +6,8 @@
     margin-right: auto;
     margin-left: auto
 }
+
+.md_content {
+  width: 70%;
+  margin: 0 auto;
+}
