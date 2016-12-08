@@ -1,9 +1,27 @@
 {% extends "base.html" %}
-	{% block md %}
+
+{% block md %}
+	<div class="row" style="height:90px;border-bottom:1px solid #987cb9;">
+		<div>
+			<h1 class="text-center">linux运维说明书</h1>
+		</div>
+		<div>
+			<p>
+				<ul class="list-inline" style="padding-left:20px;">
+					<li><a href="/">首页</a></li>
+					<li><a href="/linux">linux基础</a></li>
+					<li><a href="/python">python总结</a></li>
+					<li><a href="/node.js">node.js总结</a></li>
+					<li><a href="/django">django总结</a></li>
+				</ul>
+			</p>
+		</div>
+	</div>
+
   <div class="col-md-12">
 		<h3><p class="text-center">linux运维说明书 V0.1</p></h3>
 		<p>这是一个linux知识总结网站，之前站长使用的是笔记类型的工具来记录它们。但是文章多了，查找和对文章的分类太繁杂。于是整理了这个网站，主要用来自己查询和记录，如果能给大家带来一些便利，荣幸之至。</p>
 
 		<p>持续整理中</p>
   </div>
-	{% endblock %}
+{% endblock %}

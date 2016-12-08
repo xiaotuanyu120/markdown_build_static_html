@@ -23,30 +23,12 @@
 <body>
 
   <div class="container new_container">
-    <div class="row" style="height:90px;border-bottom:1px solid #987cb9;">
-      <div>
-        <h1 class="text-center">linux运维说明书</h1>
-      </div>
-      <div>
-        <p>
-          <ul class="list-inline" style="padding-left:20px;">
-            <li><a href="/">首页</a></li>
-            <li><a href="/linux">linux基础</a></li>
-            <li><a href="/python">python总结</a></li>
-            <li><a href="/node.js">node.js总结</a></li>
-            <li><a href="/django">django总结</a></li>
-          </ul>
-        </p>
-      </div>
-    </div>
-
     <div class="row" style="height:100%;margin-top:3px;padding-bottom:30px;min-height:650px">
       <div class="md_content">
-      {% block md %}
-      {% endblock %}
+        <a href="/{{ request.url.split('/')[4] }}">/home/{{ request.url.split('/')[4]|default('') }}</a>
+        {% block md %}
+        {% endblock %}
       </div>
-      <!-- {% block body %}
-      {% endblock %} -->
     </div>
 
     <div class="row">
