@@ -36,8 +36,8 @@ def mysql():
     return render_template("linux_mysql.html", TOPIC_DICT = TOPIC_DICT)
 
 
-@app.route('/web')
-def web():
+@app.route('/node.js')
+def node_js():
     return render_template("web_node.js.html", TOPIC_DICT = TOPIC_DICT)
 
 
