@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block md %}
+<ul class="list-unstyled">
+	{% set cat = request.path[1:] %}
+	<li>{{ cat }}</li>
+	<hr/>
+	<div class="list-group">
+		{% for sub_cat in TOPIC_DICT.get(cat, {}).keys() %}
+			{% for t in TOPIC_DICT[cat].get(sub_cat, []) %}
+			<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
+			{% endfor %}
+		{% endfor %}
+	</div>
+</ul>
+{% endblock %}

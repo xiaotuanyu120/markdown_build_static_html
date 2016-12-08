@@ -11,34 +11,9 @@ def homepage():
     return render_template("home.html", TOPIC_DICT = TOPIC_DICT)
 
 
-@app.route('/linux')
-def linux():
-    return render_template("linux_basic.html", TOPIC_DICT = TOPIC_DICT)
-
-
-@app.route('/commonly_services')
-def commonly_services():
-    return render_template("linux_commonly_services.html", TOPIC_DICT = TOPIC_DICT)
-
-
-@app.route('/python')
-def python():
-    return render_template("python_advance.html", TOPIC_DICT = TOPIC_DICT)
-
-
-@app.route('/django')
-def django():
-    return render_template("python_django.html", TOPIC_DICT = TOPIC_DICT)
-
-
-@app.route('/mysql')
-def mysql():
-    return render_template("linux_mysql.html", TOPIC_DICT = TOPIC_DICT)
-
-
-@app.route('/node.js')
-def web():
-    return render_template("web_node.js.html", TOPIC_DICT = TOPIC_DICT)
+@app.route('/<cat>')
+def cat(cat):
+    return render_template("categories_base.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/html/<cat1>/<cat2>/<topic>')

@@ -15,13 +15,14 @@
 
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-  <link href="{{ url_for('static', filename='css/highlight.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/pygments.css') }}" rel="stylesheet">
   <link href="{{ url_for('static', filename='fonts/notosanssc.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
 </head>
 
 <body>
 
-  <div class="container" style="height=100%;font-family: 'Noto Sans SC', 'Microsoft YaHei',Arial,Helvetica,sans-serif,'宋体'">
+  <div class="container new_container">
     <div class="row" style="height:90px;border-bottom:1px solid #987cb9;">
       <div>
         <h1 class="text-center">linux运维说明书</h1>
@@ -42,8 +43,12 @@
     </div>
 
     <div class="row" style="height:100%;margin-top:3px;padding-bottom:30px;min-height:650px">
-      {% block body %}
+      <div class="col-md-9">
+      {% block md %}
       {% endblock %}
+      </div>
+      <!-- {% block body %}
+      {% endblock %} -->
     </div>
 
     <div class="row">
