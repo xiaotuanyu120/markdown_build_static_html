@@ -1563,8 +1563,9 @@ pre {
     color: #333;
     word-break: break-all;
     word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    /*background-color: #f5f5f5;*/
+    background-color: #f8f8f8;
+    /*border: 1px solid #ccc;*/
     border-radius: 4px
 }
 pre code {

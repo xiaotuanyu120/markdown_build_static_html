@@ -2,4 +2,4 @@
 nohup.out
 topics.py
 *.md
-*.html
+/MyBlog/templates/html/**/*.html

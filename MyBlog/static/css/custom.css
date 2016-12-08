@@ -1,0 +1,8 @@
+.new_container {
+    height=100%;
+    font-family: 'Noto Sans SC','Microsoft YaHei',Arial,Helvetica,sans-serif,'宋体';
+    padding-right: 150px;
+    padding-left: 150px;
+    margin-right: auto;
+    margin-left: auto
+}
