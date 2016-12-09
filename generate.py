@@ -36,7 +36,7 @@ class MdGenerator(object):
         # you should have a dir named html located in same dir with your generate.py
         # all generated html file will been put inside
         if not html_dir:
-            self.html_dir = base_dir + "/MyBlog/static/html"
+            self.html_dir = base_dir + "/MyBlog/templates/html"
         else:
             if os.path.isdir(html_dir):
                 self.html_dir = html_dir
@@ -181,8 +181,8 @@ class MdGenerator(object):
             html_file = html_info[html_name]['html_file']
             cat_base, cat_child = html_file.split('/')[1:-1]
 
-            # make html_file format like "linux/1.0.0_linux.html"
-            html_file = '/'.join([html_file.split("/")[1], html_file.split("/")[-1]])
+            # # make html_file format like "linux/1.0.0_linux.html"
+            # html_file = '/'.join([html_file.split("/")[1], html_file.split("/")[-1]])
 
             html_path = unicode('/html' + html_file, 'utf-8')
             if not cat_base in index.keys():
