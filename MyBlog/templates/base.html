@@ -21,13 +21,13 @@
 </head>
 
 <body>
-
+{% block home %}
   <div class="container new_container">
     <div class="row" style="height:100%;margin-top:3px;padding-bottom:30px;min-height:650px">
       <div class="md_content">
-        <a href="/{{ request.url.split('/')[4] }}">/home/{{ request.url.split('/')[4]|default('') }}</a>
-        {% block md %}
-        {% endblock %}
+          <a href="/{{ request.url.split('/')[4] }}"><<< {{ request.url.split('/')[4]|default('') }}</a>
+          {% block md %}
+          {% endblock %}
       </div>
     </div>
 
@@ -44,6 +44,6 @@
     </div>
 
   </div> <!--close container-->
-
+{% endblock %}
 </body>
 </html>

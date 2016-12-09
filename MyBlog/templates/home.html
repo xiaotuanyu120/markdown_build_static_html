@@ -1,27 +1,47 @@
-{% extends "base.html" %}
+<!doctype html>
 
-{% block md %}
-	<div class="row" style="height:90px;border-bottom:1px solid #987cb9;">
-		<div>
-			<h1 class="text-center">linux运维说明书</h1>
-		</div>
-		<div>
-			<p>
-				<ul class="list-inline" style="padding-left:20px;">
-					<li><a href="/">首页</a></li>
-					<li><a href="/linux">linux基础</a></li>
-					<li><a href="/python">python总结</a></li>
-					<li><a href="/node.js">node.js总结</a></li>
-					<li><a href="/django">django总结</a></li>
-				</ul>
-			</p>
-		</div>
+<head>
+	<title>Welcome | linux运维说明书</title>
+	<meta charset=utf-8>
+	<meta name="description" content="linux python">
+	<meta name="author" content="Peiwu Zhao">
+	<meta name="Keywords" content="python,linux">
+
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<link rel=stylesheet href="{{ url_for('static', filename='fonts/notosanssc.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/pygments.css') }}">
+	<script type=text/javascript src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+	<style type=text/css>
+		body {font-family: 'Noto Sans SC','Microsoft YaHei',Arial,Helvetica,sans-serif,'宋体'}
+		h1 { margin: 0 0 30px 0; background: url("{{ url_for('static', filename='images/mainlogo.png') }}") no-repeat center; height: 165px; }
+		/*h1 span, p.tagline { display: none; }*/
+	</style>
+</head>
+
+<body>
+	<div class=box>
+	  <h1><span>Linux运维说明书</span></h1>
+
+	  <p class=nav>
+	    <a href="/">首页</a> //
+	    <a href="/linux">linux</a> //
+	    <a href="/python">python</a> //
+	    <a href="/node.js">node.js</a> //
+	    <a href="/django">django</a>
+		</p>
+
+		{% block md %}
+	  <blockquote>
+	    本网站致力于收录和总结有用的linux运维知识。
+			linux的运维并不仅仅局限在linux系统上，为了做好运维，有时候需要广泛的涉猎JS开发、python编程语言、自动化运维工具等。
+			本站一方面为了整理和记录站长的工作总结，另外还是站长练手的地方，此站使用了nginx、uwsgi、flask、mistune、python和js等技术。
+			另外关于"xiao5tech.com"这个域名，还有一个博客，欢迎大家关注，博客地址是:<a href="http://blog.xiao5tech.com">hexo博客</a>!
+	  </blockquote>
+		{% endblock %}
+
+	  <p class=footer>
+	    &copy; Copyright 2010 - 2016 by <a href=/contact>Peiwu Zhao</a>
 	</div>
-
-  <div class="col-md-12">
-		<h3><p class="text-center">linux运维说明书 V0.1</p></h3>
-		<p>这是一个linux知识总结网站，之前站长使用的是笔记类型的工具来记录它们。但是文章多了，查找和对文章的分类太繁杂。于是整理了这个网站，主要用来自己查询和记录，如果能给大家带来一些便利，荣幸之至。</p>
-
-		<p>持续整理中</p>
-  </div>
-{% endblock %}
+</body>
