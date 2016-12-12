@@ -1,4 +1,4 @@
-.new_container {
+/*.new_container {
     height:100%;
     font-family: 'Noto Sans SC','Microsoft YaHei',Arial,Helvetica,sans-serif,'宋体';
     padding-right: 150px;
@@ -20,4 +20,8 @@
 	width:50%;
 	height: 50%;
 	-webkit-transform: translateX(-50%) translateY(-50%);
+}*/
+
+ul li ul {
+  padding-left: 30px;
 }

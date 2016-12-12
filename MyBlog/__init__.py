@@ -2,6 +2,11 @@ from flask import Flask, render_template, redirect
 from topics import topics
 
 TOPIC_DICT = topics()
+CAT_DICT = {"linux":["basic", "commonly_services"],
+            "python":["basic", "advance"],
+            "javascript":["node.js"],
+            "django":["basic", "devops"],
+}
 
 app = Flask(__name__)
 
@@ -17,7 +22,7 @@ def homepage():
 
 @app.route('/<cat>')
 def cat(cat):
-    return render_template("categories_base.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("categories_base.html", TOPIC_DICT = TOPIC_DICT, CAT_DICT = CAT_DICT)
 
 
 @app.route('/html/<cat1>/<cat2>/<topic>')

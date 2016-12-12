@@ -1,16 +1,22 @@
-{% extends "base.html" %}
+{% extends "home.html" %}
 
 {% block md %}
 <ul class="list-unstyled">
 	{% set cat = request.path[1:] %}
-	<h3>{{ cat }}</h3>
 	<div class="list-group">
-		{% for sub_cat in TOPIC_DICT.get(cat, {}).keys() %}
+		{% for sub_cat in CAT_DICT[cat] %}
 			<hr/>
 			<h4>{{ sub_cat }}</h4>
-			{% for t in TOPIC_DICT[cat].get(sub_cat, []) %}
+			{% if cat in TOPIC_DICT.keys() %}
+				{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
+			{% else %}
+				{% set topics = [] %}
+			{% endif %}
+
+			{% for t in topics %}
 			<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
 			{% endfor %}
+
 		{% endfor %}
 	</div>
 </ul>

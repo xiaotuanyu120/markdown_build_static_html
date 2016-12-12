@@ -196,9 +196,8 @@ class MdGenerator(object):
             row_num = 0
             content = []
             for line in f.readlines():
-                # skip space line
                 if line.strip() == "":
-                    # content.append(line)
+                    content.append(line)
                     continue
                 row_num += 1
                 if row_num > 6:
