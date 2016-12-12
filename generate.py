@@ -228,6 +228,7 @@ class MdGenerator(object):
             if self.md_info[md_complete_name]['header_error']:
             # >>>>>>>>>>>>>>>>>>
             # if not md_header:
+                del self.md_info[md_complete_name]
                 continue
 
             # check categories's syntax and prepare categories folder
