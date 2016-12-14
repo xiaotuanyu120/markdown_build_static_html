@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect
 from topics import topics
 
 TOPIC_DICT = topics()
-CAT_DICT = {"linux":["basic", "commonly_services"],
+CAT_DICT = {"linux":["basic", "advance", "commonly_services"],
             "python":["basic", "advance"],
             "javascript":["node.js"],
             "django":["basic", "devops"],
