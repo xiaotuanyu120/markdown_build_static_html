@@ -2,9 +2,12 @@
 
 {% block md %}
 <ul class="list-unstyled">
-	{% set cat = request.path[1:] %}
+	{% set uri_cat = request.path[1:] %}
+	{% set cats_dict = CAT_DICT.get(uri_cat, {}) %}
+	{% set cat = cats_dict.keys()[0] %}
+	{% set sub_cats = cats_dict[cat] %}
 	<div class="list-group">
-		{% for sub_cat in CAT_DICT[cat] %}
+		{% for sub_cat in sub_cats %}
 			<hr/>
 			<h4>{{ sub_cat }}</h4>
 			{% if cat in TOPIC_DICT.keys() %}
@@ -16,7 +19,6 @@
 			{% for t in topics %}
 			<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
 			{% endfor %}
-
 		{% endfor %}
 	</div>
 </ul>
