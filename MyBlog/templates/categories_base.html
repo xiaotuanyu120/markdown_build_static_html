@@ -1,25 +1,31 @@
 {% extends "home.html" %}
 
 {% block md %}
-<ul class="list-unstyled">
+
 	{% set uri_cat = request.path[1:] %}
 	{% set cats_dict = CAT_DICT.get(uri_cat, {}) %}
 	{% set cat = cats_dict.keys()[0] %}
 	{% set sub_cats = cats_dict[cat] %}
-	<div class="list-group">
-		{% for sub_cat in sub_cats %}
-			<hr/>
-			<h4>{{ sub_cat }}</h4>
-			{% if cat in TOPIC_DICT.keys() %}
-				{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
-			{% else %}
-				{% set topics = [] %}
-			{% endif %}
-
-			{% for t in topics %}
-			<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
-			{% endfor %}
-		{% endfor %}
-	</div>
+<ul class="tab">
+	{% for sub_cat in sub_cats %}
+	<li><a href="javascript:void(0)" class="tablinks" onclick="openCity(event, '{{ sub_cat }}')">{{ sub_cat }}</a></li>
+	{% endfor %}
 </ul>
+
+	{% for sub_cat in sub_cats %}
+<ul id="{{ sub_cat }}" class="tabcontent">
+	<hr/>
+	<h4>{{ sub_cat }}</h4>
+	{% if cat in TOPIC_DICT.keys() %}
+		{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
+	{% else %}
+		{% set topics = [] %}
+	{% endif %}
+
+	{% for t in topics %}
+	<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
+	{% endfor %}
+</ul>
+	{% endfor %}
+
 {% endblock %}
