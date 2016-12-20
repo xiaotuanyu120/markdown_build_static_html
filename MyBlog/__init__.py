@@ -4,8 +4,9 @@ from topics import topics
 TOPIC_DICT = topics()
 CAT_DICT = {"linux":{"linux":["basic", "advance", "commonly_services"]},
             "python":{"python":["advance", "django", "flask"]},
-            "javaenv":{"linux":["java_env"]},
+            "java_env":{"linux":["java_env"]},
             "javascript":{"javascript":["node.js"]},
+            "database":{"mysql":["oracle"]},
 }
 
 app = Flask(__name__)
