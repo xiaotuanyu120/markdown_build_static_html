@@ -2,13 +2,8 @@ from flask import Flask, render_template, redirect
 from topics import topics
 
 TOPIC_DICT = topics()
-# CAT_DICT = {"linux":["basic", "advance", "commonly_services"],
-#             "python":["basic", "advance"],
-#             "javascript":["node.js"],
-#             "django":["basic", "devops"],
-# }
 CAT_DICT = {"linux":{"linux":["basic", "advance", "commonly_services"]},
-            "python":{"python":["basic", "advance", "django", "flask"]},
+            "python":{"python":["advance", "django", "flask"]},
             "javaenv":{"linux":["java_env"]},
             "javascript":{"javascript":["node.js"]},
 }
