@@ -8,11 +8,9 @@ TOPIC_DICT = topics()
 #             "django":["basic", "devops"],
 # }
 CAT_DICT = {"linux":{"linux":["basic", "advance", "commonly_services"]},
-            "python":{"python":["basic", "advance"]},
+            "python":{"python":["basic", "advance", "django", "flask"]},
             "javaenv":{"linux":["java_env"]},
             "javascript":{"javascript":["node.js"]},
-            "django":{"django":["basic", "devops"]},
-            "flask":{"python":["flask"]},
 }
 
 app = Flask(__name__)
