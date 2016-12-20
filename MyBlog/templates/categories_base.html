@@ -15,7 +15,6 @@
 	{% for sub_cat in sub_cats %}
 <ul id="{{ sub_cat }}" class="tabcontent">
 	<hr/>
-	<h4>{{ sub_cat }}</h4>
 	{% if cat in TOPIC_DICT.keys() %}
 		{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
 	{% else %}
