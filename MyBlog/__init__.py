@@ -5,7 +5,7 @@ TOPIC_DICT = topics()
 CAT_DICT = {"linux":{"linux":["basic", "advance", "commonly_services"]},
             "python":{"python":["advance", "django", "flask"]},
             "java_env":{"linux":["java_env"]},
-            "javascript":{"javascript":["node.js"]},
+            "javascript":{"javascript":["basic","jquery","node.js"]},
             "database":{"database":["oracle"]},
 }
 
