@@ -6,7 +6,7 @@ CAT_DICT = {"linux":{"linux":["basic", "advance", "commonly_services"]},
             "python":{"python":["advance", "django", "flask"]},
             "java_env":{"linux":["java_env"]},
             "javascript":{"javascript":["basic","jquery","node.js"]},
-            "database":{"database":["oracle"]},
+            "database":{"database":["mysql","oracle"]},
 }
 
 app = Flask(__name__)
