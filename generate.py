@@ -157,6 +157,7 @@ class MdGenerator(object):
     def md_generate(self):
         md_complete_names = self.md_info.keys()
         for md_complete_name in md_complete_names:
+            print md_complete_name
 
             # parse and check header
             self._header_parse(md_complete_name)
