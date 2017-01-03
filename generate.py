@@ -157,8 +157,6 @@ class MdGenerator(object):
     def md_generate(self):
         md_complete_names = self.md_info.keys()
         for md_complete_name in md_complete_names:
-            print md_complete_name
-
             # parse and check header
             self._header_parse(md_complete_name)
 
@@ -193,6 +191,7 @@ class MdGenerator(object):
             renderer = HighlightRenderer()
             content = self._generate_html(md_content, renderer)
             if content:
+                print md_complete_name
                 with codecs.open(html_complete_name, 'w', encoding='utf8') as f:
                     extend_file = 'categories_base.html'
                     begin_template = "{% extends '" + extend_file + "' %}\n{% block md %}\n"
