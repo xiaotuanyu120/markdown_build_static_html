@@ -199,7 +199,7 @@ class MdGenerator(object):
                     content = begin_template + content + end_template
                     f.write(content)
             else:
-                print md_file + "(error to generate)"
+                print md_complete_name + "(error to generate)"
 
     def _tryint(self, input):
         try:
