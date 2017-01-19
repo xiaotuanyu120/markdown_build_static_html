@@ -60,7 +60,7 @@ class MdGenerator(object):
 
     def collect_md_info(self):
         '''
-        get *.md file list
+        获取所有的md文件列表
         '''
         md_dir = self.md_dir
         for root, sub_dirs, md_file_names in os.walk(md_dir):
@@ -83,7 +83,7 @@ class MdGenerator(object):
 
     def _header_parse(self, md_complete_name):
         '''
-        用来解析md文件的header，如果无错，保存到self.md_info中
+        用来解析md文件的header，如果无错，将结果保存到self.md_info中
         '''
         with open(md_complete_name, 'r') as f:
             # headers totally is 4
@@ -136,6 +136,10 @@ class MdGenerator(object):
             self.md_info[md_complete_name]['header_error'] = error
 
     def _categories_check(self, md_complete_name, categories):
+        '''
+        检查header中的categories项，确保是2层，例如"linux/advance"，将结果更新
+        到self.md_info中
+        '''
         error = ""
         if categories == '':
             error = "Categories should not be blank!"
@@ -144,6 +148,9 @@ class MdGenerator(object):
         self.md_info[md_complete_name]['categories_error'] = error
 
     def _get_md_content(self, md_complete_name):
+        '''
+        返回md文件的内容部分
+        '''
         with open(md_complete_name, 'r') as f:
             row_num = 0
             content = []
@@ -158,6 +165,9 @@ class MdGenerator(object):
             return result
 
     def _generate_html(self, md_complete_name, md_content, renderer):
+        '''
+        转换md文件内容到html格式
+        '''
         try:
             md_content = unicode(md_content, 'utf-8')
             html_content = mistune.Markdown(renderer=renderer)(md_content)
@@ -167,6 +177,13 @@ class MdGenerator(object):
         return html_content
 
     def md_generate(self):
+        '''
+        包含了最重要的逻辑部分：
+            1、获取md文件列表
+            2、分析header和检查其合法性
+            3、分析并创建html文件需要保存的目录
+            4、生成html文件
+        '''
         md_complete_names = self.md_info.keys()
         for md_complete_name in md_complete_names:
             # parse and check header
@@ -221,15 +238,24 @@ class MdGenerator(object):
                 print md_complete_name + "(error to generate)"
 
     def _tryint(self, input):
+        '''
+        使用数字排序的辅助函数
+        '''
         try:
             return int(input)
         except:
             return input
 
     def _sort_key(self, in_list):
+        '''
+        将title按照数字排序
+        '''
         return [self._tryint(c) for c in re.split('([0-9]+)', in_list[0])]
 
     def _html_cat_parse(self, md_info):
+        '''
+        生成self.topics_file中的字典部分，按照分类保存html文件的位置
+        '''
         index = {}
         for md_complete_name in md_info.keys():
             title = \
@@ -249,6 +275,9 @@ class MdGenerator(object):
         return result
 
     def topic_index(self):
+        '''
+        生成self.topics_file文件的主要函数
+        '''
         index = self._html_cat_parse(self.md_info)
         topics_def_temp = "def topics():\n    topics = "
         topics_def_end = "\n    return topics"
