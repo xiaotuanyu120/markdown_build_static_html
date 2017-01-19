@@ -27,8 +27,9 @@ def cat(cat):
     return render_template("base/categories_base.html", TOPIC_DICT = TOPIC_DICT, CAT_DICT = CAT_DICT)
 
 
-@app.route('/<cat1>/<cat2>/<topic>')
+@app.route('/<cat1>/<cat2>/<topic>.html')
 def content(cat1, cat2, topic):
+    topic = topic + ".html"
     page = '/'.join([cat1, cat2, topic])
     return render_template(page, TOPIC_DICT = TOPIC_DICT)
 
