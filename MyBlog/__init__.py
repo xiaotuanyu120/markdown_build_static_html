@@ -19,12 +19,12 @@ def index():
 
 @app.route('/home')
 def homepage():
-    return render_template("home.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("base/home.html", TOPIC_DICT = TOPIC_DICT)
 
 
 @app.route('/<cat>')
 def cat(cat):
-    return render_template("categories_base.html", TOPIC_DICT = TOPIC_DICT, CAT_DICT = CAT_DICT)
+    return render_template("base/categories_base.html", TOPIC_DICT = TOPIC_DICT, CAT_DICT = CAT_DICT)
 
 
 @app.route('/html/<cat1>/<cat2>/<topic>')
@@ -35,4 +35,4 @@ def content(cat1, cat2, topic):
 
 @app.route('/contact')
 def contact():
-    return render_template("contact.html", TOPIC_DICT = TOPIC_DICT)
+    return render_template("base/contact.html", TOPIC_DICT = TOPIC_DICT)
