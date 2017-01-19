@@ -21,13 +21,14 @@ class HighlightRenderer(mistune.Renderer):
 
 class MdGenerator(object):
     def __init__(self, md_dir=None, html_dir=None):
+        ## 设定本脚本的路径
         base_dir = os.path.dirname(os.path.abspath(__file__))
+
+        ## 设定默认的md文件目录
         default_md_dir = base_dir + "/MyBlog/post"
         self.md_dir = md_dir or default_md_dir
-
         # ensure md_dir is absolute path, if not, make current dir as root dir of md_dir
         self.md_dir = self.md_dir if os.path.isabs(self.md_dir) else '/'.join([base_dir, self.md_dir])
-
         # ensure md_dir exist and not a file
         if not os.path.isdir(self.md_dir):
             if os.path.isfile(self.md_dir):
@@ -35,19 +36,20 @@ class MdGenerator(object):
             else:
                 os.makedirs(self.md_dir)
 
-        default_html_dir = base_dir + "/MyBlog/templates/html"
+        ## 设定默认的html生成文件储存目录
+        default_html_dir = base_dir + "/MyBlog/templates"
         self.html_dir = html_dir or default_html_dir
-        self.extend_file = 'base/categories_base.html'
-
         # ensure html_dir is absolute path, if not, make current dir as root dir of md_dir
         self.html_dir = self.html_dir if os.path.isabs(self.html_dir) else '/'.join([base_dir, self.html_dir])
-
         # ensure html_dir exist and not a file
         if not os.path.isdir(self.html_dir):
             if os.path.isfile(self.html_dir):
                 return "html_dir should be dir"
             else:
                 os.makedirs(self.html_dir)
+
+        ## 设定生成的html中extends的默认文件
+        self.extend_file = 'base/categories_base.html'
 
         self.md_info = {}
         self.topics_file = base_dir + '/MyBlog/topics.py'
@@ -74,6 +76,9 @@ class MdGenerator(object):
                     self.md_info[md_complete_name]["generate_error"] = ""
 
     def _header_parse(self, md_complete_name):
+        '''
+        用来解析md文件的header，如果无错，保存到self.md_info中
+        '''
         with open(md_complete_name, 'r') as f:
             # headers totally is 4
             # first "---" means start
@@ -217,7 +222,7 @@ class MdGenerator(object):
             title = unicode(md_info[md_complete_name]['headers']['title'], 'utf-8')
             categories = md_info[md_complete_name]['headers']['categories']
             html_file_name = md_info[md_complete_name]['html_file_name']
-            html_url_name = '/html/%s/%s' % (categories, html_file_name)
+            html_url_name = '/%s/%s' % (categories, html_file_name)
             html_path = unicode(html_url_name, 'utf-8')
             root_cat, sub_cat = categories.split('/')
             if not root_cat in index.keys():
