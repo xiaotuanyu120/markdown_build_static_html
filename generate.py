@@ -37,6 +37,7 @@ class MdGenerator(object):
 
         default_html_dir = base_dir + "/MyBlog/templates/html"
         self.html_dir = html_dir or default_html_dir
+        self.extend_file = 'base/categories_base.html'
 
         # ensure html_dir is absolute path, if not, make current dir as root dir of md_dir
         self.html_dir = self.html_dir if os.path.isabs(self.html_dir) else '/'.join([base_dir, self.html_dir])
@@ -193,7 +194,7 @@ class MdGenerator(object):
             if content:
                 print md_complete_name
                 with codecs.open(html_complete_name, 'w', encoding='utf8') as f:
-                    extend_file = 'categories_base.html'
+                    extend_file = self.extend_file
                     begin_template = "{% extends '" + extend_file + "' %}\n{% block md %}\n"
                     end_template = "{% endblock %}"
                     content = begin_template + content + end_template
