@@ -9,7 +9,7 @@ ul.tab {
 }
 
 /* Float the list items side by side */
-/*ul.tab li {float: left;}*/
+ul.tab li {float: left;}
 
 /* Style the links inside the list items */
 ul.tab li a {
@@ -23,10 +23,10 @@ ul.tab li a {
 }
 
 /* Change background color of links on hover */
-/*ul.tab li a:hover {background-color: 	#DCDCDC;}*/
+ul.tab li a:hover {background-color: 	#DCDCDC;}
 
 /* Create an active/current tablink class */
-/*ul.tab li a:focus, .active {background-color: #A9A9A9;}*/
+ul.tab li a:focus, .active {background-color: #A9A9A9;}
 
 /* Style the tab content */
 .tabcontent {
@@ -38,7 +38,11 @@ ul.tab li a {
 ul.tab li:before { content: "";color: #888; position: absolute; margin-left: -19px; }
 
 /* Sidebar Styles */
-.sidebar-nav { list-style: none; }
+.sidebar-nav {
+    list-style-type: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
 
 /*footer*/
 .footer { text-align: center;}
