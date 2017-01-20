@@ -37,12 +37,17 @@ ul.tab li a:focus, .active {background-color: #A9A9A9;}
 
 ul.tab li:before { content: "";color: #888; position: absolute; margin-left: -19px; }
 
+/*----------------------------------------------------------*/
+
 /* Sidebar Styles */
 .sidebar-nav {
     list-style-type: none;
     overflow: hidden;
     background-color: #f1f1f1;
+    padding-bottom: 1px;
 }
+
+/*----------------------------------------------------------*/
 
 /*footer*/
 .footer { text-align: center;}
