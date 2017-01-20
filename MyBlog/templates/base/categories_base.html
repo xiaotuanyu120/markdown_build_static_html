@@ -1,27 +1,29 @@
 {% extends "base/home.html" %}
 
 {% block body %}
-<ul class="tab">
+<div class="col-md-4 side-bar">
+	<ul class="tab">
 	{% for sub_cat in sub_cats %}
-	<li><a href="javascript:void(0)" id="{{ sub_cat }}_link" class="tablinks" onclick="getCatContent(event, '{{ sub_cat }}')">{{ sub_cat }}</a></li>
+		<li><a href="javascript:void(0)" id="{{ sub_cat }}_link" class="tablinks" onclick="getCatContent(event, '{{ sub_cat }}')">{{ sub_cat }}</a></li>
 	{% endfor %}
-</ul>
+	</ul>
 
 	{% for sub_cat in sub_cats %}
-<ul id="{{ sub_cat }}" class="tabcontent">
-	{% if cat in TOPIC_DICT.keys() %}
-		{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
-	{% else %}
-		{% set topics = [] %}
-	{% endif %}
+	<ul id="{{ sub_cat }}" class="tabcontent">
+		{% if cat in TOPIC_DICT.keys() %}
+			{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
+		{% else %}
+			{% set topics = [] %}
+		{% endif %}
 
-	{% for t in topics %}
-	<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
+		{% for t in topics %}
+		<li><a href="{{ t[1] }}">{{ t[0] }}</a></li>
+		{% endfor %}
+	</ul>
 	{% endfor %}
-</ul>
-	{% endfor %}
-
+</div>
+<div class="col-md-8">
 	{% block md %}
 	{% endblock %}
-
+</div>
 {% endblock %}

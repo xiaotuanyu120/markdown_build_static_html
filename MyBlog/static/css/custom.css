@@ -36,3 +36,9 @@ ul.tab li a:focus, .active {background-color: #ccc;}
 }
 
 ul.tab li:before { content: "";color: #888; position: absolute; margin-left: -19px; }
+
+/*side-bar*/
+.side-bar { height: auto; }
+
+/*footer*/
+.footer { text-align: center;}
