@@ -54,6 +54,9 @@
 
 		<script>
 			$(function() {
+				if (location.href.split('/')[0]) {
+					alert(location.href.split('/')[0])
+				}
 				tabcontent = document.getElementsByClassName("tabcontent");
 				tabcontent[0].style.display = "block";
 				tablinks = document.getElementsByClassName("tablinks");
