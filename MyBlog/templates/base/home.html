@@ -54,16 +54,24 @@
 
 		<script>
 			$(function() {
-				if (location.href.split('/')[0]) {
-					alert(location.href.split('/')[0])
-				}
 				tabcontent = document.getElementsByClassName("tabcontent");
-				tabcontent[0].style.display = "block";
 				tablinks = document.getElementsByClassName("tablinks");
-				tablinks[0].className += " active";
+
+				sub_cat = location.href.split('/')[4];
+				sub_cat_link = sub_cat + '_link';
+				if (sub_cat) {
+					show_ul = document.getElementById(sub_cat)
+					active_element = document.getElementById(sub_cat_link);
+				}
+				else {
+					show_ul = tabcontent[0]
+					active_element = tablinks[0];
+				}
+				active_element.className += " active";
+				show_ul.style.display = "block";
 			})
 
-			function getCatContent(evt, cityName) {
+			function getCatContent(evt, catName) {
 			    // Declare all variables
 			    var i, tabcontent, tablinks;
 
@@ -80,7 +88,7 @@
 			    }
 
 			    // Show the current tab, and add an "active" class to the link that opened the tab
-			    document.getElementById(cityName).style.display = "block";
+			    document.getElementById(catName).style.display = "block";
 			    evt.currentTarget.className += " active";
 			}
 		</script>
