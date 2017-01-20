@@ -39,7 +39,7 @@
 	    <a href="/javascript">javascript</a>
 		</p>
 
-		{% block md %}
+		{% block body %}
 	  <blockquote>
 	    本网站致力于收录和总结有用的linux运维知识。
 			linux的运维并不仅仅局限在linux系统上，为了做好运维，有时候需要广泛的涉猎JS开发、python编程语言、自动化运维工具等。
@@ -60,7 +60,7 @@
 				tablinks[0].className += " active";
 			})
 
-			function openCity(evt, cityName) {
+			function getCatContent(evt, cityName) {
 			    // Declare all variables
 			    var i, tabcontent, tablinks;
 

@@ -2,5 +2,5 @@
 nohup.out
 topics.py
 *.md
-/MyBlog/templates/html/*
-!/MyBlog/templates/html/.gitignore
+/MyBlog/templates/*
+!/MyBlog/templates/base

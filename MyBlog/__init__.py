@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from topics import topics
 
 TOPIC_DICT = topics()
@@ -26,16 +26,27 @@ def homepage():
 
 @app.route('/<cat>')
 def cat(cat):
+    uri_cat = request.full_path.split('/')[1].split('?')[0]
+    cat = CAT_DICT[uri_cat].keys()[0]
+    sub_cats = CAT_DICT[uri_cat][cat]
     return render_template("base/categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
-                           CAT_DICT=CAT_DICT)
+                           cat=cat,
+                           sub_cats=sub_cats)
 
 
 @app.route('/<cat1>/<cat2>/<topic>.html')
 def content(cat1, cat2, topic):
     topic = topic + ".html"
     page = '/'.join([cat1, cat2, topic])
-    return render_template(page, TOPIC_DICT=TOPIC_DICT)
+
+    uri_cat = request.full_path.split('/')[1].split('?')[0]
+    cat = CAT_DICT[uri_cat].keys()[0]
+    sub_cats = CAT_DICT[uri_cat][cat]
+    return render_template(page,
+                           TOPIC_DICT=TOPIC_DICT,
+                           cat=cat,
+                           sub_cats=sub_cats)
 
 
 @app.route('/contact')

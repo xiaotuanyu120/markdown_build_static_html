@@ -4063,7 +4063,8 @@ textarea.input-group-sm>.input-group-btn>.btn {
 .nav {
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    list-style: none;
+    text-align: center;
 }
 .nav>li {
     position: relative;
