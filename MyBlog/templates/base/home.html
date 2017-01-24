@@ -35,13 +35,13 @@
 					 <a class="navbar-brand" href="#">Linux运维说明书</a>
 				 	</div>
 					<ul class="nav navbar-nav">
-					  <li class="active"><a href="/">首页</a></li>
-					  <li><a href="/linux">linux</a></li>
-					  <li><a href="/python">python</a></li>
-					  <li><a href="/database">database</a></li>
-						<li><a href="/java_env">java_env</a></li>
-						<li><a href="/devops">devops</a></li>
-						<li><a href="/javascript">javascript</a></li>
+					  <li onclick="active_nav()"><a href="/home">首页</a></li>
+					  <li onclick="active_nav()"><a href="/linux">linux</a></li>
+					  <li onclick="active_nav()"><a href="/python">python</a></li>
+					  <li onclick="active_nav()"><a href="/database">database</a></li>
+						<li onclick="active_nav()"><a href="/java_env">java_env</a></li>
+						<li onclick="active_nav()"><a href="/devops">devops</a></li>
+						<li onclick="active_nav()"><a href="/javascript">javascript</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -63,6 +63,11 @@
 
 		<script>
 			$(function() {
+				// top navbar 自动active
+				$(".navbar").find(".active").removeClass("active");
+			  var url = window.location.pathname;
+			  $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+
 				tabcontent = document.getElementsByClassName("tabcontent");
 				tablinks = document.getElementsByClassName("tablinks");
 
