@@ -65,8 +65,8 @@
 			$(function() {
 				// top navbar 自动active
 				$(".navbar").find(".active").removeClass("active");
-			  var url = window.location.pathname;
-			  $('ul.nav a[href="'+ url +'"]').parent().addClass('active');
+			  var url = window.location.pathname.split( '/' )[1];
+			  $('ul.nav a[href="/'+ url +'"]').parent().addClass('active');
 
 				tabcontent = document.getElementsByClassName("tabcontent");
 				tablinks = document.getElementsByClassName("tablinks");
