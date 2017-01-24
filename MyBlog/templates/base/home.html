@@ -36,12 +36,15 @@
 				 	</div>
 					<ul class="nav navbar-nav">
 					  <li onclick="active_nav()"><a href="/home">首页</a></li>
-					  <li onclick="active_nav()"><a href="/linux">linux</a></li>
+						{% for href in HREF_LIST %}
+							<li onclick="active_nav()"><a href="/{{ href }}">{{ href }}</a></li>
+						{% endfor %}
+					  <!-- <li onclick="active_nav()"><a href="/linux">linux</a></li>
 					  <li onclick="active_nav()"><a href="/python">python</a></li>
 					  <li onclick="active_nav()"><a href="/database">database</a></li>
 						<li onclick="active_nav()"><a href="/java_env">java_env</a></li>
 						<li onclick="active_nav()"><a href="/devops">devops</a></li>
-						<li onclick="active_nav()"><a href="/javascript">javascript</a></li>
+						<li onclick="active_nav()"><a href="/javascript">javascript</a></li> -->
 					</ul>
 				</div>
 			</nav>

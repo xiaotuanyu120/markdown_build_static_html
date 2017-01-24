@@ -10,6 +10,7 @@ CAT_DICT = {
     "database": {"database": ["mysql", "oracle"]},
     "devops": {"devops": ["vagrant"]},
     }
+HREF_LIST = [x for x in CAT_DICT]
 
 app = Flask(__name__)
 
@@ -21,7 +22,9 @@ def index():
 
 @app.route('/home')
 def homepage():
-    return render_template("base/home.html", TOPIC_DICT=TOPIC_DICT)
+    return render_template("base/home.html",
+                            TOPIC_DICT=TOPIC_DICT,
+                            HREF_LIST=HREF_LIST)
 
 
 @app.route('/<cat>')
@@ -31,6 +34,7 @@ def cat(cat):
     sub_cats = CAT_DICT[uri_cat][cat]
     return render_template("base/categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
+                           HREF_LIST=HREF_LIST,
                            cat=cat,
                            sub_cats=sub_cats)
 
@@ -45,10 +49,13 @@ def content(cat1, cat2, topic):
     sub_cats = CAT_DICT[uri_cat][cat]
     return render_template(page,
                            TOPIC_DICT=TOPIC_DICT,
+                           HREF_LIST=HREF_LIST,
                            cat=cat,
                            sub_cats=sub_cats)
 
 
 @app.route('/contact')
 def contact():
-    return render_template("base/contact.html", TOPIC_DICT=TOPIC_DICT)
+    return render_template("base/contact.html",
+                           HREF_LIST=HREF_LIST,
+                           TOPIC_DICT=TOPIC_DICT)
