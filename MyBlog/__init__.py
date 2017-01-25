@@ -3,11 +3,20 @@ from topics import topics
 
 TOPIC_DICT = topics()
 CAT_DICT = {
-    "linux": {"linux": ["basic", "advance", "service", "lnmp", "shell"]},
-    "python": {"python": ["advance", "django", "flask"]},
-    "java_env": {"linux": ["java_env"]},
-    "javascript": {"javascript": ["basic", "jquery", "node.js"]},
-    "database": {"database": ["mysql", "oracle"]},
+    "linux": {"linux": ["basic",
+                        "advance",
+                        "service",
+                        "lnmp",
+                        "shell",
+                        "java_env"]},
+    "python": {"python": ["advance",
+                          "django",
+                          "flask"]},
+    "javascript": {"javascript": ["basic",
+                                  "jquery",
+                                  "node.js"]},
+    "database": {"database": ["mysql",
+                              "oracle"]},
     "devops": {"devops": ["vagrant"]},
     }
 HREF_LIST = [x for x in CAT_DICT]
