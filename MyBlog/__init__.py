@@ -17,7 +17,8 @@ CAT_DICT = {
                                   "node.js"]},
     "database": {"database": ["mysql",
                               "oracle"]},
-    "devops": {"devops": ["vagrant"]},
+    "devops": {"devops": ["vagrant",
+                          "ansible"]},
     }
 HREF_LIST = [x for x in CAT_DICT]
 
