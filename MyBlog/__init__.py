@@ -18,6 +18,7 @@ CAT_DICT = {
     "database": {"database": ["mysql",
                               "oracle"]},
     "devops": {"devops": ["vagrant",
+                          "git",
                           "ansible"]},
     "virtualization": {"virtualization":["docker"]},
     }
