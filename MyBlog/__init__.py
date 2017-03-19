@@ -20,7 +20,8 @@ CAT_DICT = {
     "devops": {"devops": ["vagrant",
                           "git",
                           "ansible"]},
-    "virtualization": {"virtualization":["docker"]},
+    "virtualization": {"virtualization":["docker",
+                                         "container"]},
     }
 HREF_LIST = [x for x in CAT_DICT]
 
