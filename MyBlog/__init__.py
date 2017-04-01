@@ -21,6 +21,7 @@ CAT_DICT = {
                           "git",
                           "ansible"]},
     "virtualization": {"virtualization":["docker",
+                                         "container",
                                          "kvm"]},
     }
 HREF_LIST = [x for x in CAT_DICT]
