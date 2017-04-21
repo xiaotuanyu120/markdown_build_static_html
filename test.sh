@@ -6,7 +6,7 @@ function stop(){
 }
 
 function start(){
-    cd /vagrant/mk2html/linux.manual;
+    cd /home/zack/Documents/linux.manual;
     nohup uwsgi test.ini &
 }
 

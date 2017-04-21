@@ -68,98 +68,26 @@
           <div class="docs-body">
 						<div class="section" id="kolla-ansible-deployment-guide">
 							<h1>Kolla-Ansible Deployment Guide<a class="headerlink" href="#kolla-ansible-deployment-guide" title="Permalink to this headline">¶</a></h1>
-							<p>Kolla provides Docker containers and Ansible playbooks to meet Kolla&#8217;s mission.
-							Kolla&#8217;s mission is to provide production-ready containers and deployment tools
-							for operating OpenStack clouds.</p>
-							<p>Kolla is highly opinionated out of the box, but allows for complete
-							customization. This permits operators with minimal experience to deploy
-							OpenStack quickly and as experience grows modify the OpenStack configuration to
-							suit the operator&#8217;s exact requirements.</p>
+							<p>文档中若无特殊说明，均使用的是centos发行版。</p>
+							<p>对于运维，无论是哪个岗位，对linux及主流服务的了解必须要到一定的程度。此处的文档全部是线上运维经验的总结，编写的角度全部假设阅读者有一定的linux基本知识，如果阅读起来有困难，推荐善用搜索工具。</p>
 							<div class="toctree-wrapper compound">
 								<ul>
 									<li class="toctree-l1">
-										<a class="reference internal" href="quickstart.html">Quick Start</a>
+										<a class="reference internal" href="">Quick Start</a>
 										<ul>
 											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#host-machine-requirements">
+												<a class="reference internal" href="">
 													Host machine requirements
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#recommended-environment">
-													Recommended environment
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#prerequisites">
-													Prerequisites
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#install-dependencies">
-													Install dependencies
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#additional-steps-for-upstart-and-other-non-systemd-distros">
-													Additional steps for upstart and other non-systemd distros
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#install-kolla-for-deployment-or-evaluation">
-													Install Kolla for deployment or evaluation
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#install-kolla-for-development">
-													Install Kolla for development
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#local-registry">
-													Local Registry
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#automatic-host-bootstrap">
-													Automatic host bootstrap
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#build-container-images">
-													Build container images
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="quickstart.html#deploy-kolla">
-													Deploy Kolla
 												</a>
 											</li>
 										</ul>
 									</li>
 									<li class="toctree-l1">
-										<a class="reference internal" href="multinode.html">
-											Multinode Deployment of Kolla
-										</a>
+										<a class="reference internal" href="">Multinode Deployment of Kolla</a>
 										<ul>
 											<li class="toctree-l2">
-												<a class="reference internal" href="multinode.html#deploy-a-registry">
+												<a class="reference internal" href="">
 													Deploy a registry
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="multinode.html#configure-docker-on-all-nodes">
-													Configure Docker on all nodes
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="multinode.html#edit-the-inventory-file">
-													Edit the Inventory File
-												</a>
-											</li>
-											<li class="toctree-l2">
-												<a class="reference internal" href="multinode.html#deploying-kolla">
-													Deploying Kolla
 												</a>
 											</li>
 										</ul>
@@ -203,22 +131,15 @@
 		<div class="col-lg-3 col-md-4 col-sm-4 col-lg-pull-9 col-md-pull-8 col-sm-pull-8 docs-sidebar">
   		<div class="btn-group docs-sidebar-releases">
     		<button onclick="location.href='/'" class="btn docs-sidebar-home" data-toggle="tooltip" data-placement="top" title="Docs Home"><i class="fa fa-arrow-circle-o-left"></i></button>
-				<button href="#" type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">OpenStack Documentation<i class="fa fa-caret-down"></i></button>
+				<button href="#" type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">Xiao5tech Docs<i class="fa fa-caret-down"></i></button>
 		    <ul class="dropdown-menu docs-sidebar-dropdown" role="menu" aria-labelledby="dLabel">
 		      <li role="presentation" class="dropdown-header">Guides</li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#install-guides">Install Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#user-guides">User Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#configuration-guides">Configuration Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#ops-and-admin-guides">Operations and Administration Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#api-guides">API Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#contributor-guides">Contributor Guides</a></li>
-		      <li role="presentation" class="dropdown-header">Languages</li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/ja/">日本語 (Japanese)</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/de/">Deutsch (German)</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/fr/">Français (French)</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/pt_BR/">Português (Portuguese)</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/zh_CN/">简体中文 (Simplified Chinese)</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/ko_KR/">한국어 (Korean)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Install Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">User Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Configuration Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Operations and Administration Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">API Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Contributor Guides</a></li>
 		    </ul>
   		</div>
   		<div class="docs-sidebar-toc">
