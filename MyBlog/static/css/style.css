@@ -362,21 +362,21 @@ i.fa-caret-right {
    color: #8a959e;
    font-size: 12px;
    text-transform: lowercase;
-   font-weight: 400;  
+   font-weight: 400;
 }
 
 .header-search::-moz-placeholder {  /* Firefox 19+ */
    color: #8a959e;
    font-size: 12px;
    text-transform: lowercase;
-   font-weight: 400;  
+   font-weight: 400;
 }
 
-.header-search:-ms-input-placeholder {  
+.header-search:-ms-input-placeholder {
    color: #8a959e;
    font-size: 12px;
    text-transform: lowercase;
-   font-weight: 400;  
+   font-weight: 400;
 }
 .header-search:focus {
     border-radius: 4px;
@@ -594,7 +594,7 @@ a.overview-btn.right-btn {
 }
 .overview-right {
     text-align: center;
-}   
+}
 .control-cloud-graphic {
     max-width: 600px;
     margin: 0 auto 15px;
@@ -1073,28 +1073,28 @@ footer {
     margin-right: 10px;
 }
 .footer-twitter {
-    background: url('../images/footer-twitter.png') no-repeat;
+    background: url('../images/footer/footer-twitter.png') no-repeat;
 }
 .footer-twitter:hover {
-    background: url('../images/footer-twitter-hover.png') no-repeat;
+    background: url('../images/footer/footer-twitter-hover.png') no-repeat;
 }
 .footer-facebook {
-    background: url('../images/footer-facebook.png') no-repeat;
+    background: url('../images/footer/footer-facebook.png') no-repeat;
 }
 .footer-facebook:hover {
-    background: url('../images/footer-facebook-hover.png') no-repeat;
+    background: url('../images/footer/footer-facebook-hover.png') no-repeat;
 }
 .footer-linkedin {
-    background: url('../images/footer-linkedin.png') no-repeat;
+    background: url('../images/footer/footer-linkedin.png') no-repeat;
 }
 .footer-linkedin:hover {
-    background: url('../images/footer-linkedin-hover.png') no-repeat;
+    background: url('../images/footer/footer-linkedin-hover.png') no-repeat;
 }
 .footer-youtube {
-    background: url('../images/footer-youtube.png') no-repeat;
+    background: url('../images/footer/footer-youtube.png') no-repeat;
 }
 .footer-youtube:hover {
-    background: url('../images/footer-youtube-hover.png') no-repeat;
+    background: url('../images/footer/footer-youtube-hover.png') no-repeat;
 }
 .newsletter-form {
     margin: 10px 0 30px;
@@ -1133,21 +1133,21 @@ footer {
     color: #888;
     font-size: 12px;
     font-weight: 400;
-    text-transform: uppercase;  
+    text-transform: uppercase;
 }
 
 .newsletter-input::-moz-placeholder {  /* Firefox 19+ */
     color: #888;
     font-size: 12px;
     font-weight: 400;
-    text-transform: uppercase;  
+    text-transform: uppercase;
 }
 
-.newsletter-input:-ms-input-placeholder {  
+.newsletter-input:-ms-input-placeholder {
     color: #888;
     font-size: 12px;
     font-weight: 400;
-    text-transform: uppercase;  
+    text-transform: uppercase;
 }
 .newsletter-input:focus {
     outline: none;
@@ -1220,19 +1220,19 @@ footer {
 .feedback-input:-moz-placeholder { /* Firefox 18- */
     color: #555;
     font-size: 12px;
-    font-weight: 400;  
+    font-weight: 400;
 }
 
 .feedback-input::-moz-placeholder {  /* Firefox 19+ */
     color: #555;
     font-size: 12px;
-    font-weight: 400;  
+    font-weight: 400;
 }
 
-.feedback-input:-ms-input-placeholder {  
+.feedback-input:-ms-input-placeholder {
     color: #555;
     font-size: 12px;
-    font-weight: 400;  
+    font-weight: 400;
 }
 .feedback-input:focus {
     outline: none;
