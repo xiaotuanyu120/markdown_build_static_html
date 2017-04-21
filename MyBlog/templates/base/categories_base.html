@@ -1,7 +1,7 @@
 {% extends "base/home.html" %}
 
-{% block body %}
-<div class="col-md-4">
+{% block doc_body %}
+<!-- <div class="col-md-4">
 	<ul class="tab">
 	{% for sub_cat in sub_cats %}
 		<li><a href="javascript:void(0)" id="{{ sub_cat }}_link" class="tablinks" onclick="getCatContent(event, '{{ sub_cat }}')">{{ sub_cat }}</a></li>
@@ -25,5 +25,212 @@
 <div class="col-md-8">
 	{% block md %}
 	{% endblock %}
+</div> -->
+<div class="container docs-book-wrapper">
+  <div class="row">
+    <div class="col-lg-9 col-md-8 col-sm-8 col-lg-push-3 col-md-push-4 col-sm-push-4">
+      <div class="row">
+  			<div class="col-lg-8">
+      		<h2>Kolla-Ansible Deployment Guide</h2>
+  			</div>
+  			<div class="docs-actions">
+    			<a href="quickstart.html">
+						<i class="fa fa-angle-double-right" data-toggle="tooltip" data-placement="top" title="Next: Quick Start">
+						</i>
+					</a>
+    			<a id="logABugLink1" href="" target="_blank" title="Found an error? Report a bug against this page">
+						<i class="fa fa-bug" data-toggle="tooltip" data-placement="top" title="Report a Bug">
+						</i>
+					</a>
+  			</div>
+			</div>
+      <div class="row docs-byline">
+        <div class="docs-updated">
+					updated: 2017-04-20 10:25
+				</div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="docs-top-contents">
+						<h5>
+							<a href="#">
+								Contents
+							</a>
+						</h5>
+						<ul>
+							<li>
+								<a class="reference internal" href="#">
+									Kolla-Ansible Deployment Guide
+								</a>
+							</li>
+						</ul>
+          </div>
+          <div class="docs-body">
+						<div class="section" id="kolla-ansible-deployment-guide">
+							<h1>Kolla-Ansible Deployment Guide<a class="headerlink" href="#kolla-ansible-deployment-guide" title="Permalink to this headline">¶</a></h1>
+							<p>Kolla provides Docker containers and Ansible playbooks to meet Kolla&#8217;s mission.
+							Kolla&#8217;s mission is to provide production-ready containers and deployment tools
+							for operating OpenStack clouds.</p>
+							<p>Kolla is highly opinionated out of the box, but allows for complete
+							customization. This permits operators with minimal experience to deploy
+							OpenStack quickly and as experience grows modify the OpenStack configuration to
+							suit the operator&#8217;s exact requirements.</p>
+							<div class="toctree-wrapper compound">
+								<ul>
+									<li class="toctree-l1">
+										<a class="reference internal" href="quickstart.html">Quick Start</a>
+										<ul>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#host-machine-requirements">
+													Host machine requirements
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#recommended-environment">
+													Recommended environment
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#prerequisites">
+													Prerequisites
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#install-dependencies">
+													Install dependencies
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#additional-steps-for-upstart-and-other-non-systemd-distros">
+													Additional steps for upstart and other non-systemd distros
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#install-kolla-for-deployment-or-evaluation">
+													Install Kolla for deployment or evaluation
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#install-kolla-for-development">
+													Install Kolla for development
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#local-registry">
+													Local Registry
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#automatic-host-bootstrap">
+													Automatic host bootstrap
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#build-container-images">
+													Build container images
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="quickstart.html#deploy-kolla">
+													Deploy Kolla
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="toctree-l1">
+										<a class="reference internal" href="multinode.html">
+											Multinode Deployment of Kolla
+										</a>
+										<ul>
+											<li class="toctree-l2">
+												<a class="reference internal" href="multinode.html#deploy-a-registry">
+													Deploy a registry
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="multinode.html#configure-docker-on-all-nodes">
+													Configure Docker on all nodes
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="multinode.html#edit-the-inventory-file">
+													Edit the Inventory File
+												</a>
+											</li>
+											<li class="toctree-l2">
+												<a class="reference internal" href="multinode.html#deploying-kolla">
+													Deploying Kolla
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+        	</div>
+      	</div>
+      </div>
+      <div class="docs-actions">
+        <a href="quickstart.html">
+					<i class="fa fa-angle-double-right" data-toggle="tooltip" data-placement="top" title="Next: Quick Start">
+					</i>
+				</a>
+        <a id="logABugLink3" href="" target="_blank" title="Found an error? Report a bug against this page"><i class="fa fa-bug" data-toggle="tooltip" data-placement="top" title="Report a Bug"></i></a>
+      </div>
+      <div class="row docs-byline bottom">
+        <div class="docs-updated">
+					updated: 2017-04-20 10:25
+				</div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-8 docs-license">
+					<a href="https://creativecommons.org/licenses/by/3.0/">
+						<img src="_static/images/docs/license.png" alt="Creative Commons Attribution 3.0 License"/>
+					</a>
+					<p>
+						Except where otherwise noted, this document is licensed under
+						<a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons
+						Attribution 3.0 License</a>. See all <a href="http://www.openstack.org/legal">
+						OpenStack Legal Documents</a>.
+					</p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 docs-actions-wrapper">
+          <a href="#" id="logABugLink2" class="docs-footer-actions"><i class="fa fa-bug"></i> found an error? report a bug</a>
+          <a href="http://ask.openstack.org" class="docs-footer-actions"><i class="fa fa-question-circle"></i> questions?</a>
+        </div>
+      </div> -->
+    </div>
+		<div class="col-lg-3 col-md-4 col-sm-4 col-lg-pull-9 col-md-pull-8 col-sm-pull-8 docs-sidebar">
+  		<div class="btn-group docs-sidebar-releases">
+    		<button onclick="location.href='/'" class="btn docs-sidebar-home" data-toggle="tooltip" data-placement="top" title="Docs Home"><i class="fa fa-arrow-circle-o-left"></i></button>
+				<button href="#" type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">OpenStack Documentation<i class="fa fa-caret-down"></i></button>
+		    <ul class="dropdown-menu docs-sidebar-dropdown" role="menu" aria-labelledby="dLabel">
+		      <li role="presentation" class="dropdown-header">Guides</li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#install-guides">Install Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#user-guides">User Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#configuration-guides">Configuration Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#ops-and-admin-guides">Operations and Administration Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#api-guides">API Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/index.html#contributor-guides">Contributor Guides</a></li>
+		      <li role="presentation" class="dropdown-header">Languages</li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/ja/">日本語 (Japanese)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/de/">Deutsch (German)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/fr/">Français (French)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/pt_BR/">Português (Portuguese)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/zh_CN/">简体中文 (Simplified Chinese)</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="http://docs.openstack.org/ko_KR/">한국어 (Korean)</a></li>
+		    </ul>
+  		</div>
+  		<div class="docs-sidebar-toc">
+    		<div class="docs-sidebar-section" id="table-of-contents">
+      		<a href="#" class="docs-sidebar-section-title"><h4>Contents</h4></a>
+		      <ul>
+						<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+						<li class="toctree-l1"><a class="reference internal" href="multinode.html">Multinode Deployment of Kolla</a></li>
+					</ul>
+    		</div>
+  		</div>
+		</div>
+	</div>
 </div>
 {% endblock %}

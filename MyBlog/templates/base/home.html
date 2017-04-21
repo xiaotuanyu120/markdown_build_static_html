@@ -10,12 +10,13 @@
   <meta charset="utf-8"/>
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <!-- CSS in: ./common/css/-->
+  <!-- CSS in: ./static/css/-->
   <!-- Bootstrap Core CSS -->
   <link href="./static/css/bootstrap.css" rel="stylesheet"/>
   <!-- Custom CSS -->
   <link href="./static/css/combined.css" rel="stylesheet"/>
-  <link href="./static/css/styles.css" rel="stylesheet"/>
+  <link href="./static/css/combined-doc.css" rel="stylesheet"/>
+  <link href="./static/css/style.css" rel="stylesheet"/>
   <!-- Fonts -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css"/>
@@ -46,15 +47,15 @@ ga('send', 'pageview');
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
      <button class="navbar-toggle" data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button">
-      <span class="sr-only">
-       Toggle navigation
-      </span>
-      <span class="icon-bar">
-      </span>
-      <span class="icon-bar">
-      </span>
-      <span class="icon-bar">
-      </span>
+        <span class="sr-only">
+         Toggle navigation
+        </span>
+        <span class="icon-bar">
+        </span>
+        <span class="icon-bar">
+        </span>
+        <span class="icon-bar">
+        </span>
      </button>
      <div class="brand-wrapper">
       <a class="navbar-brand" href="/">
@@ -66,8 +67,7 @@ ga('send', 'pageview');
       Search
      </div>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling
--->
+    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
      <div class="search-container tiny">
       <div id="gcse">
@@ -77,9 +77,7 @@ ga('send', 'pageview');
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
         gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' :
-'http:') +
-            '//www.google.com/cse/cse.js?cx=' + cx;
+        gcse.src = (document.location.protocol == 'https:'?'https:':'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
       })();
@@ -97,165 +95,9 @@ ga('send', 'pageview');
         </gcse:search>
        </div>
       </li>
-      <!-- <li>
-       <a class="drop" href="https://www.openstack.org/software/" id="dropdownMenuSoftware">
-        Software
-        <i class="fa fa-caret-down">
-        </i>
-       </a>
-       <i class="mobile-expand">
-       </i>
-       <ul aria-labelledby="dropdownMenuSoftware" class="dropdown-menu dropdown-hover" role="menu">
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/" role="menuitem" tabindex="-1">
-          Overview
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/project-navigator/" role="menuitem" tabindex="-1">
-          Project Navigator
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/sample-configs/" role="menuitem" tabindex="-1">
-          Sample Configs
-         </a>
-        </li>
-        <li class="divider" role="presentation">
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/security/" role="menuitem" tabindex="-1">
-          Security
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/start/" role="menuitem" tabindex="-1">
-          Get Started
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/roadmap/" role="menuitem" tabindex="-1">
-          Roadmap
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/latest-release/" role="menuitem" tabindex="-1">
-          Latest Release
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/software/sourcecode/" role="menuitem" tabindex="-1">
-          Source Code
-         </a>
-        </li>
-       </ul>
-      </li>
       <li>
-       <a class="drop" href="https://www.openstack.org/user-stories/" id="dropdownMenuUsers">
-        Users
-        <i class="fa fa-caret-down">
-        </i>
-       </a>
-       <i class="mobile-expand">
-       </i>
-       <ul aria-labelledby="dropdownMenuUsers" class="dropdown-menu dropdown-hover" role="menu">
-        <li role="presentation">
-         <a href="https://www.openstack.org/user-stories/" role="menuitem" tabindex="-1">
-          Overview
-         </a>
-        </li>
-        <li class="divider" role="presentation">
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/telecoms-and-nfv/" role="menuitem" tabindex="-1">
-          Telecoms and NFV
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/enterprise/" role="menuitem" tabindex="-1">
-          OpenStack in the Enterprise
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/appdev/" role="menuitem" tabindex="-1">
-          Application Developers &amp; ISVs
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="//superuser.openstack.org/" role="menuitem" tabindex="-1">
-          Superuser Magazine
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/surveys/landing" role="menuitem" tabindex="-1">
-          User Survey
-         </a>
-        </li>
-       </ul>
-      </li>
-      <li>
-       <a class="drop" href="https://www.openstack.org/community/" id="dropdownMenuCommunity">
-        Community
-        <i class="fa fa-caret-down">
-        </i>
-       </a>
-       <i class="mobile-expand">
-       </i>
-       <ul aria-labelledby="dropdownMenuCommunity" class="dropdown-menu dropdown-hover" role="menu">
-        <li role="presentation">
-         <a href="https://www.openstack.org/community/" role="menuitem" tabindex="-1">
-          Welcome! Start Here
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/foundation/" role="menuitem" tabindex="-1">
-          OpenStack Foundation
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://wiki.openstack.org" role="menuitem" tabindex="-1">
-          OpenStack Wiki
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://groups.openstack.org" role="menuitem" tabindex="-1">
-          User Groups
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/community/speakers/" role="menuitem" tabindex="-1">
-          Speakers Bureau
-         </a>
-        </li>
-        <li class="divider" role="presentation">
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/foundation/companies/" role="menuitem" tabindex="-1">
-          Supporting Companies
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/community/jobs/" role="menuitem" tabindex="-1">
-          Jobs
-         </a>
-        </li>
-        <li class="divider" role="presentation">
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/join/" role="menuitem" tabindex="-1">
-          Join The Community
-         </a>
-        </li>
-       </ul>
-      </li>
-      <li>
-       <a href="https://www.openstack.org/marketplace/">
-        Marketplace
-       </a>
-      </li>
-      <li>
-       <a class="drop" href="https://www.openstack.org/events/" id="dropdownMenuEvents">
-        Events
+       <a class="drop" href="" id="dropdownMenuLearn">
+        社区
         <i class="fa fa-caret-down">
         </i>
        </a>
@@ -263,73 +105,17 @@ ga('send', 'pageview');
        </i>
        <ul aria-labelledby="dropdownMenuEvents" class="dropdown-menu dropdown-hover" role="menu">
         <li role="presentation">
-         <a href="https://www.openstack.org/community/events/" role="menuitem" tabindex="-1">
-          Overview
+         <a href="" role="menuitem" tabindex="-1">
+          论坛
          </a>
         </li>
         <li role="presentation">
-         <a href="https://www.openstack.org/summit/" role="menuitem" tabindex="-1">
-          The OpenStack Summit
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/community/events/#openstack_days" role="menuitem" tabindex="-1">
-          OpenStack Days
+         <a href="" role="menuitem" tabindex="-1">
+          博客
          </a>
         </li>
        </ul>
       </li>
-      <li>
-       <a class="drop" href="https://www.openstack.org/learn/" id="dropdownMenuLearn">
-        Learn
-        <i class="fa fa-caret-down">
-        </i>
-       </a>
-       <i class="mobile-expand">
-       </i>
-       <ul aria-labelledby="dropdownMenuEvents" class="dropdown-menu dropdown-hover" role="menu">
-        <li role="presentation">
-         <a href="https://www.openstack.org/marketplace/training/" role="menuitem" tabindex="-1">
-          Training
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/marketplace/coa/" role="menuitem" tabindex="-1">
-          Get Certified
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="//ask.openstack.org" role="menuitem" tabindex="-1">
-          Ask a Technical Question
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="//superuser.openstack.org" role="menuitem" tabindex="-1">
-          Superuser Magazine
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/videos/" role="menuitem" tabindex="-1">
-          Summit Videos
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/analysts/" role="menuitem" tabindex="-1">
-          Analyst Reports
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/news/" role="menuitem" tabindex="-1">
-          News
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="https://www.openstack.org/blog/" role="menuitem" tabindex="-1">
-          Blog
-         </a>
-        </li>
-       </ul>
-      </li> -->
       <li>
        <a class="drop" href="" id="dropdownMenuSoftware">
         文档
@@ -341,7 +127,7 @@ ga('send', 'pageview');
        <ul aria-labelledby="dropdownMenuSoftware" class="dropdown-menu dropdown-hover" role="menu">
         <li role="presentation">
          <a href="" role="menuitem" tabindex="-1">
-          概览
+          完整文档分类
          </a>
         </li>
         <li class="divider" role="presentation">
@@ -354,21 +140,6 @@ ga('send', 'pageview');
         <li role="presentation">
          <a href="" role="menuitem" tabindex="-1">
           Python
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="" role="menuitem" tabindex="-1">
-          Roadmap
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="" role="menuitem" tabindex="-1">
-          Latest Release
-         </a>
-        </li>
-        <li role="presentation">
-         <a href="" role="menuitem" tabindex="-1">
-          Source Code
          </a>
         </li>
        </ul>
@@ -413,6 +184,7 @@ ga('send', 'pageview');
    <!-- /.container -->
   </nav>
   <!-- Begin Page Content -->
+  {% block doc_body %}
   <div class="top-docs-wrapper">
    <div class="container">
     <div class="row">
@@ -446,21 +218,19 @@ ga('send', 'pageview');
        </i>
       </a>
       <form class="docs-main-search-form">
-       <script type="text/javascript">
-        (function() {
-        var cx = '000108871792296872333:noj9nikm74i';
-        var gcse = document.createElement('script');
-        gcse.type = 'text/javascript';
-        gcse.async = true;
-        gcse.src = (document.location.protocol == 'https:' ? 'https:' :
-'http:') +
-            '//www.google.com/cse/cse.js?cx=' + cx;
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(gcse, s);
-      })();
-       </script>
-       <gcse:search as_sitesearch="docs.openstack.org" gname="standard">
-       </gcse:search>
+        <script type="text/javascript">
+          (function() {
+            var cx = '000108871792296872333:noj9nikm74i';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:'?'https:':'http:') + '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+          })();
+         </script>
+        <gcse:search as_sitesearch="docs.openstack.org" gname="standard">
+        </gcse:search>
       </form>
      </div>
      <div class="col-lg-4 col-md-4 col-sm-4 superuser-wrapper">
@@ -482,22 +252,22 @@ ga('send', 'pageview');
       </div>
       <div class="col-lg-3 col-md-3 col-sm-3">
        <div class="dropdown docs-dropdown">
-        <a data-toggle="dropdown" href="#">
-         更多文档 &amp; 文档分类
+        <a data-toggle="dropdown" href="">
+         完整文档分类
          <i class="fa fa-caret-down fa-3">
          </i>
         </a>
         <ul aria-labelledby="dLabel" class="dropdown-menu" role="menu">
          <li class="dropdown-header" role="presentation">
-          Releases
+          文档分类
          </li>
          <li role="presentation">
-          <a href="" role="menuitem" tabindex="-1">
+          <a href="/linux" role="menuitem" tabindex="-1">
            Linux
           </a>
          </li>
          <li role="presentation">
-          <a href="" role="menuitem" tabindex="-1">
+          <a href="/python" role="menuitem" tabindex="-1">
            Python
           </a>
          </li>
@@ -540,109 +310,6 @@ ga('send', 'pageview');
         这是一篇点击量最高的文档
        </a>
       </div>
-      <!-- <div class="docs-link-sections">
-       <h3 id="project-deploy-guide">
-        <i class="fa fa-cogs">
-        </i>
-        Deployment Guides
-       </h3>
-       <p>
-        Choose how to deploy OpenStack and get started with the most commonly used OpenStack services
-       </p>
-       <a href="/project-deploy-guide/ocata/">
-        Deployment Guides
-       </a>
-      </div>
-      <div class="docs-link-sections">
-       <h3 id="ops-and-admin-guides">
-        <i class="fa fa-users">
-        </i>
-        Operations and Administration Guides
-       </h3>
-       <a href="/admin-guide/">
-        Administrator Guide
-       </a>
-       <p>
-        Manage and troubleshoot an OpenStack cloud
-       </p>
-       <a href="/ha-guide/">
-        High Availability Guide
-       </a>
-       <a href="/ha-guide/HAGuide.pdf">
-        [PDF]
-       </a>
-       <p>
-        Install and configure OpenStack for high availability
-       </p>
-       <a href="/ops-guide/">
-        Operations Guide
-       </a>
-       <a href="/ops-guide/OpsGuide.pdf">
-        [PDF]
-       </a>
-       <p>
-        Design, create, and administer a production OpenStack cloud
-       </p>
-       <a href="/security-guide/">
-        Security Guide
-       </a>
-       <p>
-        Guidelines and scenarios for creating more secure OpenStack clouds
-       </p>
-       <a href="/image-guide/">
-        Virtual Machine Image Guide
-       </a>
-       <a href="/image-guide/ImageGuide.pdf">
-        [PDF]
-       </a>
-       <p>
-        Obtain, create, and modify OpenStack-compatible virtual machine images
-       </p>
-       <a href="/arch-design/">
-        Architecture Design Guide
-       </a>
-       <a href="/arch-design/ArchGuide.pdf">
-        [PDF]
-       </a>
-       <p>
-        Guidelines for designing an OpenStack cloud
-       </p>
-       <a href="/ocata/networking-guide/">
-        Networking Guide
-       </a>
-       <a href="/ocata/networking-guide/NetworkingGuide.pdf">
-        [PDF]
-       </a>
-       <p>
-        Deploy and manage OpenStack Networking (neutron)
-       </p>
-      </div>
-      <div class="docs-link-sections">
-       <h3 id="configuration-guides">
-        <i class="fa fa-wrench">
-        </i>
-        Configuration Guides
-       </h3>
-       <a href="/ocata/config-reference/">
-        Configuration Reference
-       </a>
-       <p>
-        Installation and configuration options for OpenStack
-       </p>
-      </div>
-      <div class="docs-link-sections">
-       <h3 id="api-guides">
-        <i class="fa fa-book">
-        </i>
-        API Guides
-       </h3>
-       <a href="https://developer.openstack.org/api-guide/quick-start/">
-        API Guide
-       </a>
-       <p>
-        OpenStack API Documentation
-       </p>
-      </div> -->
      </div>
      <div class="col-lg-6 col-md-6 col-sm-6">
       <div class="docs-link-sections">
@@ -660,106 +327,13 @@ ga('send', 'pageview');
        <p>
         留言内容
        </p>
-       <a href="/cli-reference/">
+       <a href="">
         另一篇被留言的文档
        </a>
        <p>
         留言内容
        </p>
       </div>
-      <!-- <div class="docs-link-sections">
-       <h3 id="contributor-guides">
-        <i class="fa fa-leaf">
-        </i>
-        Project-specific Guides
-       </h3>
-       <a href="/developer/openstack-projects.html">
-        Services and Libraries
-       </a>
-       <p>
-        Documentation for OpenStack services and libraries
-       </p>
-       <a href="/developer/language-bindings.html">
-        Language Bindings and Python Clients
-       </a>
-       <p>
-        Documentation for the OpenStack Python bindings and clients
-       </p>
-      </div>
-      <div class="docs-link-sections">
-       <h3 id="contributor-guides">
-        <i class="fa fa-pencil">
-        </i>
-        Contributor Guides
-       </h3>
-       <a href="/contributor-guide/index.html">
-        OpenStack Documentation Contributor Guide
-       </a>
-       <p>
-        Documentation workflow and conventions
-       </p>
-       <a href="https://governance.openstack.org/tc/">
-        OpenStack Technical Committee Governance Documents
-       </a>
-       <p>
-        OpenStack Technical Committee reference documents and official resolutions
-       </p>
-       <a href="http://specs.openstack.org/">
-        OpenStack Project specifications
-       </a>
-       <p>
-        Specifications for future project features
-       </p>
-       <a href="/project-team-guide/">
-        OpenStack Project Team Guide
-       </a>
-       <p>
-        Guide to the OpenStack project and community
-       </p>
-       <a href="/infra/">
-        OpenStack Developer and Community Infrastructure Documentation
-       </a>
-       <p>
-        Development and infrastructure documentation
-       </p>
-       <a href="/developer/i18n/">
-        OpenStack I18n Guide
-       </a>
-       <p>
-        Internationalization workflow and conventions
-       </p>
-       <a href="https://www.openstack.org/join/">
-        Join the OpenStack Foundation
-       </a>
-       <p>
-        How to join the OpenStack Foundation
-       </p>
-       <a href="https://www.openstack.org/user-survey/">
-        Take the Deployment Survey
-       </a>
-       <p>
-        Influence the future of OpenStack
-       </p>
-      </div>
-      <div class="docs-link-sections">
-       <h3 id="training-guides">
-        <i class="fa fa-university">
-        </i>
-        Training Guides And Training Labs
-       </h3>
-       <a href="/upstream-training/">
-        Upstream training
-       </a>
-       <p>
-        Resources for the OpenStack Upstream Training program
-       </p>
-       <a href="/training_labs/">
-        Training Labs
-       </a>
-       <p>
-        Tools for OpenStack Training. Automatic deployment of lean virtualized multi-node openstack cluster.
-       </p>
-      </div> -->
      </div>
     </div>
     <div class="row docs-contribute-wrapper">
@@ -776,6 +350,7 @@ ga('send', 'pageview');
     </div>
    </div>
   </div>
+  {% endblock %}
   <!-- End Page Content -->
   <!-- Footer -->
   <footer>
@@ -861,15 +436,6 @@ ga('send', 'pageview');
       </a>
       <a class="social-icons footer-youtube" href="" target="_blank">
       </a>
-      <!-- <form class="form-inline">
-                        <div class="form-group newsletter-form">
-                            <label>Join Our Newsletter</label>
-                            <input class="newsletter-input" type="input"
-placeholder="Email">
-                            <button type="submit"
-class="newsletter-btn">Join</button>
-                        </div>
-                    </form> -->
       <p class="fine-print">
        网战由flask，nginx，uwsgi，mistune等技术支持。linux.xiao5tech.com由
        <a href="http://flask.pocoo.org/" target="_blank">
@@ -896,20 +462,20 @@ class="newsletter-btn">Join</button>
   <script src="./static/js/navigation.js" type="text/javascript">
   </script>
   <!-- Docs JS -->
-  <script src="./common/js/docs.js" type="text/javascript">
+  <script src="./static/js/docs.js" type="text/javascript">
   </script>
   <!-- Popovers -->
-  <script src="./common/js/webui-popover.js" type="text/javascript">
+  <script src="./static/js/webui-popover.js" type="text/javascript">
   </script>
   <!-- Javascript for page -->
   <script type="text/javascript">
    // Change character image on refresh
       // Add file names and captions to doc-characters.json
-      $.getJSON("./static/js/doc-characters.json", function(data) {
-        var item = data.images[Math.floor(Math.random()*data.images.length)];
-        $('<img src="./static/js/../images/docs/' + item.image + '">').appendTo('#superuser-img');
-        $('<p>' + item.caption + '<strong>OpenStack Operator</strong></p>').appendTo('#superuser-img');
-      });
+    $.getJSON("./static/js/doc-characters.json", function(data) {
+      var item = data.images[Math.floor(Math.random()*data.images.length)];
+      $('<img src="./static/js/../images/docs/' + item.image + '">').appendTo('#superuser-img');
+      $('<p>' + item.caption + '<strong>OpenStack Operator</strong></p>').appendTo('#superuser-img');
+    });
   </script>
  </body>
 </html>

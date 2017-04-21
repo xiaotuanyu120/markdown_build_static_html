@@ -46,11 +46,12 @@ def cat(cat):
     uri_cat = request.full_path.split('/')[1].split('?')[0]
     cat = CAT_DICT[uri_cat].keys()[0]
     sub_cats = CAT_DICT[uri_cat][cat]
-    return render_template("base/categories_base.html",
-                           TOPIC_DICT=TOPIC_DICT,
-                           HREF_LIST=HREF_LIST,
-                           cat=cat,
-                           sub_cats=sub_cats)
+    return render_template("base/categories_base.html")
+    # return render_template("base/categories_base.html",
+    #                        TOPIC_DICT=TOPIC_DICT,
+    #                        HREF_LIST=HREF_LIST,
+    #                        cat=cat,
+    #                        sub_cats=sub_cats)
 
 
 @app.route('/<cat1>/<cat2>/<topic>.html')
