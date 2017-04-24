@@ -72,17 +72,27 @@
 							<p>对于运维，无论是哪个岗位，对linux及主流服务的了解必须要到一定的程度。此处的文档全部是线上运维经验的总结，编写的角度全部假设阅读者有一定的linux基本知识，如果阅读起来有困难，推荐善用搜索工具。</p>
 							<div class="toctree-wrapper compound">
 								<ul>
+                  {% for sub_cat in sub_cats %}
 									<li class="toctree-l1">
-										<a class="reference internal" href="">Quick Start</a>
+										<a class="reference internal" href="">{{ sub_cat }}</a>
+                    {% if cat in TOPIC_DICT.keys() %}
+                			{% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
+                		{% else %}
+                			{% set topics = [] %}
+                		{% endif %}
+
 										<ul>
+                      {% for t in topics %}
 											<li class="toctree-l2">
-												<a class="reference internal" href="">
-													Host machine requirements
+												<a class="reference internal" href="{{ t[1] }}">
+													{{ t[0] }}
 												</a>
 											</li>
+                      {% endfor %}
 										</ul>
 									</li>
-									<li class="toctree-l1">
+                  {% endfor %}
+									<!-- <li class="toctree-l1">
 										<a class="reference internal" href="">Multinode Deployment of Kolla</a>
 										<ul>
 											<li class="toctree-l2">
@@ -91,7 +101,7 @@
 												</a>
 											</li>
 										</ul>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 						</div>
@@ -133,21 +143,39 @@
     		<button onclick="location.href='/'" class="btn docs-sidebar-home" data-toggle="tooltip" data-placement="top" title="Docs Home"><i class="fa fa-arrow-circle-o-left"></i></button>
 				<button href="#" type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">Xiao5tech Docs<i class="fa fa-caret-down"></i></button>
 		    <ul class="dropdown-menu docs-sidebar-dropdown" role="menu" aria-labelledby="dLabel">
-		      <li role="presentation" class="dropdown-header">Guides</li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Install Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">User Guides</a></li>
+		      <li role="presentation" class="dropdown-header">完整文档分类</li>
+          {% for l in HREF_LIST %}
+          <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ l }}">{{ l }}</a></li>
+          {% endfor %}
+		      <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="">User Guides</a></li>
 		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Configuration Guides</a></li>
 		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Operations and Administration Guides</a></li>
 		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">API Guides</a></li>
-		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Contributor Guides</a></li>
+		      <li role="presentation"><a role="menuitem" tabindex="-1" href="">Contributor Guides</a></li> -->
 		    </ul>
   		</div>
   		<div class="docs-sidebar-toc">
     		<div class="docs-sidebar-section" id="table-of-contents">
       		<a href="#" class="docs-sidebar-section-title"><h4>Contents</h4></a>
 		      <ul>
-						<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
-						<li class="toctree-l1"><a class="reference internal" href="multinode.html">Multinode Deployment of Kolla</a></li>
+            {% for sub_cat in sub_cats %}
+            <li class="toctree-l1">
+              <a class="reference internal" href="">{{ sub_cat }}</a>
+              <!-- {% if cat in TOPIC_DICT.keys() %}
+                {% set topics = TOPIC_DICT[cat].get(sub_cat, []) %}
+              {% else %}
+                {% set topics = [] %}
+              {% endif %}
+
+              <ul>
+                {% for t in topics %}
+                  <li class="toctree-l1"><a class="reference internal" href="{{ t[1] }}">{{ t[0] }}</a></li>
+                {% endfor %}
+              </ul> -->
+            </li>
+            {% endfor %}
+						<!-- <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+						<li class="toctree-l1"><a class="reference internal" href="multinode.html">Multinode Deployment of Kolla</a></li> -->
 					</ul>
     		</div>
   		</div>

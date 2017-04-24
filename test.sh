@@ -6,7 +6,7 @@ function stop(){
 }
 
 function start(){
-    cd /home/zack/Documents/linux.manual;
+    cd /home/zack/docs/linux.manual;
     nohup uwsgi test.ini &
 }
 
