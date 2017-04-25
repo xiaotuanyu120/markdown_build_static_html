@@ -12,11 +12,11 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <!-- CSS in: ./static/css/-->
   <!-- Bootstrap Core CSS -->
-  <link href="./static/css/bootstrap.css" rel="stylesheet"/>
+  <link href="/static/css/bootstrap.css" rel="stylesheet"/>
   <!-- Custom CSS -->
-  <link href="./static/css/combined.css" rel="stylesheet"/>
-  <link href="./static/css/combined-doc.css" rel="stylesheet"/>
-  <link href="./static/css/style.css" rel="stylesheet"/>
+  <link href="/static/css/combined.css" rel="stylesheet"/>
+  <link href="/static/css/combined-doc.css" rel="stylesheet"/>
+  <link href="/static/css/style.css" rel="stylesheet"/>
   <!-- Fonts -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css"/>
@@ -134,7 +134,7 @@ ga('send', 'pageview');
         </li>
         {% for l in HREF_LIST %}
         <li role="presentation">
-         <a href="{{ l }}" role="menuitem" tabindex="-1">
+         <a href="/{{ l }}" role="menuitem" tabindex="-1">
           {{ l }}
          </a>
         </li>
@@ -241,7 +241,7 @@ ga('send', 'pageview');
      <div class="row">
       <div class="col-lg-9 col-md-9 col-sm-9">
        <h2>
-        文档动态 (2017)
+        文档动态 (2017 - 功能开发中)
        </h2>
        <p>
         这里展示的是文档的最新动态. 如果需要查看完整文档及其分类，请点击右边的蓝色下拉菜单。
@@ -345,7 +345,7 @@ ga('send', 'pageview');
       <p>
        文档内容托管在github上 - 感兴趣?
       </p>
-      <a class="overview-btn contribute-btn" href="">
+      <a class="overview-btn contribute-btn" href="https://github.com/xiaotuanyu120/linux-Operation-and-maintenance-manual">
        前往文档内容github
        <i class="fa fa-chevron-right">
        </i>
@@ -457,27 +457,27 @@ ga('send', 'pageview');
   </footer>
   <!-- Scripts in: ./static/js/-->
   <!-- jQuery Version 3.1.1 -->
-  <script src="./static/js/jquery-3.1.1.js" type="text/javascript">
+  <script src="/static/js/jquery-3.1.1.js" type="text/javascript">
   </script>
   <!-- Bootstrap Core JavaScript -->
-  <script src="./static/js/bootstrap.js" type="text/javascript">
+  <script src="/static/js/bootstrap.js" type="text/javascript">
   </script>
   <!-- The rest of the JS -->
-  <script src="./static/js/navigation.js" type="text/javascript">
+  <script src="/static/js/navigation.js" type="text/javascript">
   </script>
   <!-- Docs JS -->
-  <script src="./static/js/docs.js" type="text/javascript">
+  <script src="/static/js/docs.js" type="text/javascript">
   </script>
   <!-- Popovers -->
-  <script src="./static/js/webui-popover.js" type="text/javascript">
+  <script src="/static/js/webui-popover.js" type="text/javascript">
   </script>
   <!-- Javascript for page -->
   <script type="text/javascript">
    // Change character image on refresh
       // Add file names and captions to doc-characters.json
-    $.getJSON("./static/js/doc-characters.json", function(data) {
+    $.getJSON("/static/js/doc-characters.json", function(data) {
       var item = data.images[Math.floor(Math.random()*data.images.length)];
-      $('<img src="./static/js/../images/docs/' + item.image + '">').appendTo('#superuser-img');
+      $('<img src="/static/js/../images/docs/' + item.image + '">').appendTo('#superuser-img');
       $('<p>' + item.caption + '<strong>OpenStack Operator</strong></p>').appendTo('#superuser-img');
     });
   </script>

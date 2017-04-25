@@ -57,17 +57,34 @@ def cat(cat):
                            sub_cats=sub_cats)
 
 
+@app.route('/<cat1>/<cat2>')
+def sub_content(cat1, cat2):
+    page = '/'.join([cat1, cat2])
+    uri_cat = request.full_path.split('/')[1].split('?')[0]
+    uri_subcat = request.full_path.split('/')[2].split('?')[0]
+    cat = CAT_DICT[uri_cat].keys()[0]
+    sub_cats = CAT_DICT[uri_cat][cat]
+    return render_template("base/sub_categories_base.html",
+                           TOPIC_DICT=TOPIC_DICT,
+                           HREF_LIST=HREF_LIST,
+                           uri_subcat=uri_subcat,
+                           cat=cat,
+                           sub_cats=sub_cats)
+
+
 @app.route('/<cat1>/<cat2>/<topic>.html')
 def content(cat1, cat2, topic):
     topic = topic + ".html"
     page = '/'.join([cat1, cat2, topic])
 
     uri_cat = request.full_path.split('/')[1].split('?')[0]
+    uri_subcat = request.full_path.split('/')[2].split('?')[0]
     cat = CAT_DICT[uri_cat].keys()[0]
     sub_cats = CAT_DICT[uri_cat][cat]
     return render_template(page,
                            TOPIC_DICT=TOPIC_DICT,
                            HREF_LIST=HREF_LIST,
+                           uri_subcat=uri_subcat,
                            cat=cat,
                            sub_cats=sub_cats)
 
