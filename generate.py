@@ -53,7 +53,7 @@ class MdGenerator(object):
                 os.makedirs(self.html_dir)
 
         # 设定生成的html中extends的默认文件
-        self.extend_file = 'base/categories_base.html'
+        self.extend_file = 'base/sub_categories_base.html'
 
         self.md_info = {}
         self.topics_file = base_dir + '/MyBlog/topics.py'

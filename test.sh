@@ -6,8 +6,8 @@ function stop(){
 }
 
 function start(){
-    cd /data/www/linux_manual;
-    nohup uwsgi myblog.ini &
+    cd /vagrant/mk2html/linux.manual;
+    nohup uwsgi test.ini &
 }
 
 case $1 in
