@@ -264,7 +264,12 @@ class MdGenerator(object):
             html_file_name = md_info[md_complete_name]['html_file_name']
             html_url_name = '/%s/%s' % (categories, html_file_name)
             html_path = unicode(html_url_name, 'utf-8')
-            root_cat, sub_cat = categories.split('/')
+            try:
+                root_cat, sub_cat = categories.split('/')
+            except ValueError as e:
+                print "%s's categories: '%s' is wrong!" % (html_file_name,
+                                                           categories)
+                continue
             if root_cat not in index.keys():
                 index[root_cat] = {}
             if sub_cat not in index[root_cat].keys():
