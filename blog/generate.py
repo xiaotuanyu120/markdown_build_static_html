@@ -1,12 +1,19 @@
 # -*- coding: utf-8 -*-
+
 import os
 import re
+import json
 
 import mistune
 import codecs
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
+
+from config import Config
+
+CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
 
 
 class HighlightRenderer(mistune.Renderer):
@@ -25,7 +32,7 @@ class MdGenerator(object):
         base_dir = os.path.dirname(os.path.abspath(__file__))
 
         # 设定默认的md文件目录
-        default_md_dir = base_dir + "/MyBlog/post"
+        default_md_dir = BLOG["md_dir"]
         self.md_dir = md_dir or default_md_dir
         # ensure md_dir is absolute path,
         # if not, make current dir as root dir of md_dir
@@ -39,7 +46,7 @@ class MdGenerator(object):
                 os.makedirs(self.md_dir)
 
         # 设定默认的html生成文件储存目录
-        default_html_dir = base_dir + "/MyBlog/templates"
+        default_html_dir = BLOG["html_dir"]
         self.html_dir = html_dir or default_html_dir
         # ensure html_dir is absolute path,
         # if not, make current dir as root dir of md_dir
@@ -56,7 +63,8 @@ class MdGenerator(object):
         self.extend_file = 'base/sub_categories_base.html'
 
         self.md_info = {}
-        self.topics_file = base_dir + '/MyBlog/topics.py'
+        self.topics_file = BLOG["topics_file"]
+        self.index_json_file = BLOG["index_json_file"]
 
     def collect_md_info(self):
         '''
@@ -290,9 +298,15 @@ class MdGenerator(object):
         with open(self.topics_file, 'w') as f:
             f.write(topics_def)
 
+    def index_json(self):
+        index_data = json.dumps(self.md_info, indent=4)
+        with open(self.index_json_file, 'w') as f:
+            f.write(index_data)
+
 
 if __name__ == "__main__":
     markdown_generator = MdGenerator()
     markdown_generator.collect_md_info()
     markdown_generator.md_generate()
     markdown_generator.topic_index()
+    markdown_generator.index_json()

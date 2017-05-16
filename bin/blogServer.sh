@@ -1,13 +1,15 @@
 #!/bin/bash
 
+BASE_DIR=/data/www/linux_manual
+
 function stop(){
     pid=`ps aux|grep uwsgi|grep 'S '|awk '{print $2}'`
     kill -9 $pid;
 }
 
 function start(){
-    cd /data/www/linux_manual;
-    nohup uwsgi myblog.ini &
+    cd ${BASE_DIR}/conf
+    nohup uwsgi blog.ini &
 }
 
 case $1 in
