@@ -1,16 +1,16 @@
 {
    "images":[
       {
-         "image":"superuser1.png",
-         "caption":"Jesse Proudman"
+         "image":"linux.png",
+         "caption":"linux"
       },
       {
-         "image":"superuser2.png",
-         "caption":"Narayan Desai"
+         "image":"openstack.png",
+         "caption":"openstack"
       },
       {
-         "image":"superuser3.png",
-         "caption":"Elissa Murphy"
+         "image":"python.png",
+         "caption":"python"
       },
       {
          "image":"superuser4.png",

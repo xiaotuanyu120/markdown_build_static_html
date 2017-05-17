@@ -4,4 +4,3 @@ topics.py
 *.md
 /blog/templates/*
 !/blog/templates/base
-*.json
