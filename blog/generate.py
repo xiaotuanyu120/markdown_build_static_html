@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 
 import os
 import re
@@ -12,6 +12,7 @@ from pygments.formatters import html
 
 from config import Config
 
+
 CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
 
@@ -19,8 +20,7 @@ BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
 class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang):
         if not lang:
-            return '\n<pre><code>%s</code></pre>\n' % \
-                mistune.escape(code)
+            return '\n<pre><code>%s</code></pre>\n' % mistune.escape(code)
         lexer = get_lexer_by_name(lang, stripall=True)
         formatter = html.HtmlFormatter()
         return highlight(code, lexer, formatter)
@@ -28,161 +28,45 @@ class HighlightRenderer(mistune.Renderer):
 
 class MdGenerator(object):
     def __init__(self, md_dir=None, html_dir=None):
-        # 设定本脚本的路径
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-
-        # 设定默认的md文件目录
+        """
+        md_dir: markdown file's absolute path direction
+        html_dir: html file's absolute path direction
+        extend_file: included in generated html file
+        topics_file: topics file that include md title and html path
+        index_json_file: store all md_info in json format
+        md_info: a dict that store all information of markdown file
+        """
         default_md_dir = BLOG["md_dir"]
-        self.md_dir = md_dir or default_md_dir
-        # ensure md_dir is absolute path,
-        # if not, make current dir as root dir of md_dir
-        self.md_dir = self.md_dir if os.path.isabs(self.md_dir) \
-            else '/'.join([base_dir, self.md_dir])
-        # ensure md_dir exist and not a file
-        if not os.path.isdir(self.md_dir):
-            if os.path.isfile(self.md_dir):
-                return "md_dir should be dir"
-            else:
-                os.makedirs(self.md_dir)
-
-        # 设定默认的html生成文件储存目录
         default_html_dir = BLOG["html_dir"]
+        self.md_dir = md_dir or default_md_dir
         self.html_dir = html_dir or default_html_dir
-        # ensure html_dir is absolute path,
-        # if not, make current dir as root dir of md_dir
-        self.html_dir = self.html_dir if os.path.isabs(self.html_dir) \
-            else '/'.join([base_dir, self.html_dir])
-        # ensure html_dir exist and not a file
-        if not os.path.isdir(self.html_dir):
-            if os.path.isfile(self.html_dir):
-                return "html_dir should be dir"
-            else:
-                os.makedirs(self.html_dir)
 
-        # 设定生成的html中extends的默认文件
-        self.extend_file = 'base/sub_categories_base.html'
+        # make sure html_dir,md_dir is absolute path to an existing dir
+        if not _dir_check(self.html_dir):
+            return self.html_dir
+        if not _dir_check(self.md_dir):
+            return self.md_dir
 
         self.md_info = {}
-        self.topics_file = BLOG["topics_file"]
+        self.extend_file = BLOG["extend_file"]
+        # self.topics_file = BLOG["topics_file"]
+        self.topics_json = BLOG["topics_json"]
         self.index_json_file = BLOG["index_json_file"]
 
-    def collect_md_info(self):
+    def initial_md_info(self):
         '''
-        获取所有的md文件列表
+        initial all markdown file's information
         '''
-        md_dir = self.md_dir
-        for root, sub_dirs, md_file_names in os.walk(md_dir):
-            for md_file_name in md_file_names:
-                md_name_splits = md_file_name.split('.')
-                if len(md_name_splits) > 1 and md_name_splits[-1] == "md":
-                    md_complete_name = "%s/%s" % (root, md_file_name)
-                    html_file_name = md_file_name.rsplit(".md")[0] + ".html"
-                    self.md_info[md_complete_name] = {}
-                    self.md_info[md_complete_name]["md_file_name"] = \
-                        md_file_name
-                    self.md_info[md_complete_name]["md_path_name"] = root
-                    self.md_info[md_complete_name]['html_file_name'] = \
-                        html_file_name
-                    self.md_info[md_complete_name]["html_path_name"] = ""
-                    self.md_info[md_complete_name]["html_complete_name"] = ""
-                    self.md_info[md_complete_name]['categories_error'] = ""
-                    self.md_info[md_complete_name]['header_error'] = ""
-                    self.md_info[md_complete_name]["generate_error"] = ""
-
-    def _header_parse(self, md_complete_name):
-        '''
-        用来解析md文件的header，如果无错，将结果保存到self.md_info中
-        '''
-        with open(md_complete_name, 'r') as f:
-            # headers totally is 4
-            # first "---" means start
-            # second "---" means end
-            row_num = 0
-            header_list = ['title', 'date', 'categories', 'tags']
-            result = {}
-            error = ""
-            for row in f.readlines():
-                # check stop singnal
-                if error:
-                    break
-                # skip space row
-                if row.strip() == "":
-                    continue
-                row_num += 1
-                if row_num == 1:
-                    if not row.strip() == "---":
-                        result = {}
-                        error = "Missing header start tag: '---'!"
-                        continue
-                elif 1 < row_num < 6:
-                    if ":" not in row:
-                        result = {}
-                        error = "Missing header seperate tag: ':'!"
-                        continue
-                    key, value = row.strip().split(":", 1)
-                    header_key = key.strip()
-                    header_value = value.strip()
-                    if header_key not in header_list:
-                        result = {}
-                        error = "Invaild header(%s)!" % header_key
-                        continue
-                    else:
-                        result[header_key] = header_value
-                        header_list.remove(header_key)
-                elif row_num == 6:
-                    if not row.strip() == "---":
-                        result = {}
-                        error = "Missing header end tag: '---'!"
-                        continue
-                    else:
-                        error = ""
-                        break
-                else:
-                    print "The end of the world!"
-                    break
-            self.md_info[md_complete_name]['headers'] = result
-            self.md_info[md_complete_name]['header_error'] = error
-
-    def _categories_check(self, md_complete_name, categories):
-        '''
-        检查header中的categories项，确保是2层，例如"linux/advance"，将结果更新
-        到self.md_info中
-        '''
-        error = ""
-        if categories == '':
-            error = "Categories should not be blank!"
-        if not len(categories.split('/')) == 2:
-            error = "Wrong categories syntax! should be 2 level!"
-        self.md_info[md_complete_name]['categories_error'] = error
-
-    def _get_md_content(self, md_complete_name):
-        '''
-        返回md文件的内容部分
-        '''
-        with open(md_complete_name, 'r') as f:
-            row_num = 0
-            content = []
-            for line in f.readlines():
-                if line.strip() == "":
-                    content.append(line)
-                    continue
-                row_num += 1
-                if row_num > 6:
-                    content.append(line)
-            result = ''.join(content)
-            return result
-
-    def _generate_html(self, md_complete_name, md_content, renderer):
-        '''
-        转换md文件内容到html格式
-        '''
-        try:
-            md_content = unicode(md_content, 'utf-8')
-            html_content = mistune.Markdown(renderer=renderer)(md_content)
-        except TypeError as e:
-            self.md_info[md_complete_name]["generate_error"] = str(e)
-            return
-        return html_content
+        for md_pname, sub_dir, md_fnames in os.walk(self.md_dir):
+            for md_fname in md_fnames:
+                md_fname_spl = md_fname.split('.')
+                if len(md_fname_spl) > 1 and md_fname_spl[-1] == "md":
+                    md_cname = os.path.join(md_pname, md_fname)
+                    html_fname = md_fname.rsplit(".md")[0] + ".html"
+                    self.md_info[md_cname] = {}
+                    self.md_info[md_cname]["md_fname"] = md_fname
+                    self.md_info[md_cname]["md_pname"] = md_pname
+                    self.md_info[md_cname]['html_fname'] = html_fname
 
     def md_generate(self):
         '''
@@ -192,106 +76,66 @@ class MdGenerator(object):
             3、分析并创建html文件需要保存的目录
             4、生成html文件
         '''
-        md_complete_names = self.md_info.keys()
-        for md_complete_name in md_complete_names:
+        md_cnames = self.md_info.keys()
+        for md_cname in md_cnames:
             # parse and check header
-            self._header_parse(md_complete_name)
-
-            if self.md_info[md_complete_name]['header_error']:
-                del self.md_info[md_complete_name]
+            result = _header_parse(md_cname)
+            if result['error']:
+                del self.md_info[md_cname]
                 continue
+            else:
+                self.md_info[md_cname]['headers'] = result['data']
 
-            categories = \
-                self.md_info[md_complete_name]['headers']['categories']
-
-            self._categories_check(md_complete_name, categories)
-            if self.md_info[md_complete_name]["categories_error"]:
+            # check categories
+            categories = self.md_info[md_cname]['headers']['categories']
+            cate = _categories_check(md_cname, categories)
+            if cate['error']:
+                del self.md_info[md_cname]
                 continue
+            else:
+                self.md_info[md_cname]['base_cat'] = cate['data']['base_cat']
+                self.md_info[md_cname]['sub_cat'] = cate['data']['sub_cat']
 
-            # get the path html should stored in
-            self.md_info[md_complete_name]["html_path_name"] = \
-                self.html_dir + '/' + categories
-            html_path_name = self.md_info[md_complete_name]["html_path_name"]
-            html_file_name = self.md_info[md_complete_name]["html_file_name"]
-            self.md_info[md_complete_name]['html_complete_name'] = \
-                html_path_name + "/" + html_file_name
-            html_complete_name = \
-                self.md_info[md_complete_name]["html_complete_name"]
-            if not os.path.isdir(html_path_name):
-                os.makedirs(html_path_name)
+            # get the html complete path
+            self.md_info[md_cname]["html_pname"] = \
+                os.path.join(self.html_dir, categories)
+            html_pname = self.md_info[md_cname]["html_pname"]
+            html_fname = self.md_info[md_cname]["html_fname"]
+            self.md_info[md_cname]['html_cname'] = \
+                os.path.join(html_pname, html_fname)
+            html_cname = self.md_info[md_cname]["html_cname"]
+            if not os.path.isdir(html_pname):
+                os.makedirs(html_pname)
 
             # if html_file exist and newer than md file, skip generate it
-            if os.path.isfile(html_complete_name):
-                html_mtime = os.path.getmtime(html_complete_name)
-                md_mtime = os.path.getmtime(md_complete_name)
+            if os.path.isfile(html_cname):
+                html_mtime = os.path.getmtime(html_cname)
+                md_mtime = os.path.getmtime(md_cname)
                 mtime_compare = md_mtime - html_mtime
                 if mtime_compare <= 0:
                     continue
 
-            md_content = self._get_md_content(md_complete_name)
+            md_content = _get_md_content(md_cname)
             renderer = HighlightRenderer()
-            content = \
-                self._generate_html(md_complete_name, md_content, renderer)
+            content = _generate_html(md_cname, md_content, renderer)
             if content:
-                print md_complete_name
-                with codecs.open(html_complete_name, 'w', encoding='utf8') \
-                        as f:
-                    extend_file = self.extend_file
-                    begin_template = \
-                        "{% extends '" + extend_file + "' %}\n{% block md %}\n"
+                with codecs.open(html_cname, 'w', encoding='utf8') as f:
+                    begin_template = ''.join(["{% extends '",
+                                              self.extend_file,
+                                              "' %}\n{% block md %}\n"])
                     end_template = "{% endblock %}"
                     content = begin_template + content + end_template
                     f.write(content)
+                print "INFO: [%s] convert success." % md_cname
             else:
-                print md_complete_name + "(error to generate)"
-
-    def _tryint(self, input):
-        '''
-        使用数字排序的辅助函数
-        '''
-        try:
-            return int(input)
-        except:
-            return input
-
-    def _sort_key(self, in_list):
-        '''
-        将title按照数字排序
-        '''
-        return [self._tryint(c) for c in re.split('([0-9]+)', in_list[0])]
-
-    def _html_cat_parse(self, md_info):
-        '''
-        生成self.topics_file中的字典部分，按照分类保存html文件的位置
-        '''
-        index = {}
-        for md_complete_name in md_info.keys():
-            title = \
-                unicode(md_info[md_complete_name]['headers']['title'], 'utf-8')
-            categories = md_info[md_complete_name]['headers']['categories']
-            html_file_name = md_info[md_complete_name]['html_file_name']
-            html_url_name = '/%s/%s' % (categories, html_file_name)
-            html_path = unicode(html_url_name, 'utf-8')
-            try:
-                root_cat, sub_cat = categories.split('/')
-            except ValueError as e:
-                print "%s's categories: '%s' is wrong!" % (html_file_name,
-                                                           categories)
+                del self.md_info[md_cname]
                 continue
-            if root_cat not in index.keys():
-                index[root_cat] = {}
-            if sub_cat not in index[root_cat].keys():
-                index[root_cat][sub_cat] = []
-            index[root_cat][sub_cat].append([title, html_path])
-            index[root_cat][sub_cat].sort(key=self._sort_key)
-        result = str(index).replace(']', ']\n    ')
-        return result
 
     def topic_index(self):
         '''
         生成self.topics_file文件的主要函数
         '''
-        index = self._html_cat_parse(self.md_info)
+        index = _html_cat_parse(self.md_info)
         topics_def_temp = "def topics():\n    topics = "
         topics_def_end = "\n    return topics"
         topics_def = topics_def_temp + index + topics_def_end
@@ -303,10 +147,171 @@ class MdGenerator(object):
         with open(self.index_json_file, 'w') as f:
             f.write(index_data)
 
+    def topic_json(self):
+        topic_data = {}
+        for md_cname in self.md_info.keys():
+            base_cat = self.md_info[md_cname]['base_cat']
+            sub_cat = self.md_info[md_cname]['sub_cat']
+            title = self.md_info[md_cname]['headers']['title']
+            html_cname = self.md_info[md_cname]['html_cname']
+            html_link = html_cname.split(self.html_dir)[1]
+
+            # initial base_cat to a dict
+            if not base_cat in topic_data.keys():
+                topic_data[base_cat] = {}
+
+            # initial sub_cat to a list
+            if not sub_cat in topic_data[base_cat].keys():
+                topic_data[base_cat][sub_cat] = []
+
+            # save title, html_link and sort it
+            topic_data[base_cat][sub_cat].append([title, html_link])
+            topic_data[base_cat][sub_cat].sort(key=_sort_key)
+        topic_data = json.dumps(topic_data, indent=4)
+        with open(self.topics_json, 'w') as f:
+            f.write(topic_data)
+
+
+def _dir_check(dir):
+    """
+    make sure dir is absolute path,
+    make sure html_dir exist and not a file
+    """
+    if not os.path.isabs(dir):
+        print "%s should be ABSOLUTE PATH like '/path/to/dir'" % dir
+        return
+
+    if not os.path.isdir(dir):
+        print "%s should be an EXISTING DIR" % dir
+        return
+    return dir
+
+
+def _categories_check(md_cname, categories):
+    '''
+    check categories of md_cname, make sure its format like "linux/advance"
+    '''
+    result = {'data': {}, 'error': None}
+
+    try:
+        base_cat, sub_cat = categories.split('/')
+    except ValueError:
+        result['error'] = "Wrong CATEGORIES format! depth should be 2!"
+
+    if result['error']:
+        print "ERROR: [%s]'s error is '%s'" % (md_cname, result['error'])
+    else:
+        result['data'] = {'base_cat': base_cat, 'sub_cat': sub_cat}
+    return result
+
+
+def _header_parse(md_cname):
+    '''
+    parse header info of markdown file, and save it into self.md_info
+
+    parse rules:
+        headers totally is 4
+        first "---" means start
+        second "---" means end
+    '''
+    with open(md_cname, 'r') as f:
+        row_num = 0
+        header_list = ['title', 'date', 'categories', 'tags']
+        result = {'data': {}, 'error': None}
+        for row in f.readlines():
+            if result['error']:
+                break
+
+            if row.strip() == "":
+                continue
+
+            row_num += 1
+            if row_num == 1:
+                if not row.strip() == "---":
+                    result = {'data': {}, 'error': None}
+                    result['error'] = "Missing header start tag: '---'!"
+                    break
+            elif 1 < row_num < 6:
+                if ":" not in row:
+                    result = {'data': {}, 'error': None}
+                    result['error'] = "Missing header seperate tag: ':'!"
+                    break
+                key, value = row.strip().split(":", 1)
+                header_key = key.strip()
+                header_value = value.strip()
+                if header_key not in header_list:
+                    result = {'data': {}, 'error': None}
+                    result['error'] = "Invaild header(%s)!" % header_key
+                    break
+                else:
+                    result['data'][header_key] = header_value
+                    header_list.remove(header_key)
+            elif row_num == 6:
+                if not row.strip() == "---":
+                    result = {'data': {}, 'error': None}
+                    result['error'] = "Missing header end tag: '---'!"
+                break
+
+        if result['error']:
+            print "ERROR: [%s]'s error is '%s'" % (md_cname, result['error'])
+        return result
+
+
+def _get_md_content(md_cname):
+    '''
+    return markdown content
+    '''
+    with open(md_cname, 'r') as f:
+        row_num = 0
+        content = []
+        for line in f.readlines():
+            if line.strip() == "":
+                content.append(line)
+                continue
+            row_num += 1
+            if row_num > 6:
+                content.append(line)
+        result = ''.join(content)
+        return result
+
+
+def _generate_html(md_cname, md_content, renderer):
+    '''
+    convert markdown content to html format
+    '''
+    try:
+        md_content = unicode(md_content, 'utf-8')
+        html_content = mistune.Markdown(renderer=renderer)(md_content)
+    except TypeError as e:
+        print "ERROR: [%s]'s error is '%s'" % (md_cname, str(e))
+        return
+    return html_content
+
+
+def _tryint(input):
+    '''
+    attaching function for _sort_key
+    '''
+    try:
+        return int(input)
+    except:
+        return input
+
+
+def _sort_key(in_list):
+    '''
+    function for sort key by number
+    '''
+    return [_tryint(c) for c in re.split('([0-9]+)', in_list[0])]
+
+
+def main(md_dir=None, html_dir=None):
+    md_gen = MdGenerator(md_dir=md_dir, html_dir=html_dir)
+    md_gen.initial_md_info()
+    md_gen.md_generate()
+    md_gen.index_json()
+    md_gen.topic_json()
+
 
 if __name__ == "__main__":
-    markdown_generator = MdGenerator()
-    markdown_generator.collect_md_info()
-    markdown_generator.md_generate()
-    markdown_generator.topic_index()
-    markdown_generator.index_json()
+    main()
