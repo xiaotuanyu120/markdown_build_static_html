@@ -1,7 +1,18 @@
-from flask import Flask, render_template, redirect, request
-from topics import topics
+# coding=utf-8
 
-TOPIC_DICT = topics()
+import os
+import json
+
+from flask import Flask, render_template, redirect, request
+
+from config import Config
+
+CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
+
+with open(BLOG['topics_json'], 'r') as json_file:
+    TOPIC_DICT = json.load(json_file)
+
 CAT_DICT = {
     "linux": {"linux": ["basic",
                         "advance",
