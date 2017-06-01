@@ -61,7 +61,5 @@ jQuery(window).resize(function () {
 
 // Show placeholder text in Google Search
 setTimeout( function() {
-    $(".gsc-input").attr("placeholder", "search openstack");
+    $(".gsc-input").attr("placeholder", "search xiao5tech");
 }, 1000 );
-
-

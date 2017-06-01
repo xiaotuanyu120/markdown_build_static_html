@@ -74,6 +74,16 @@ ga('send', 'pageview');
       <div id="gcse">
        <script type="text/javascript">
         (function() {
+          var cx = '012343983721360531439:ff68trchadg';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+        })();
+        </script>
+        <!-- (function() {
         var cx = '000108871792296872333:noj9nikm74i';
         var gcse = document.createElement('script');
         gcse.type = 'text/javascript';
@@ -82,7 +92,7 @@ ga('send', 'pageview');
         var s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(gcse, s);
       })();
-       </script>
+       </script> -->
        <gcse:search gname="standard">
        </gcse:search>
       </div>
@@ -216,7 +226,7 @@ ga('send', 'pageview');
        </i>
       </a>
       <form class="docs-main-search-form">
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
           (function() {
             var cx = '000108871792296872333:noj9nikm74i';
             var gcse = document.createElement('script');
@@ -226,8 +236,20 @@ ga('send', 'pageview');
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gcse, s);
           })();
-         </script>
-        <gcse:search as_sitesearch="docs.openstack.org" gname="standard">
+         </script> -->
+         <script type="text/javascript">
+          (function() {
+            var cx = '012343983721360531439:ff68trchadg';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+          })();
+          </script>
+        <!-- <gcse:search as_sitesearch="docs.openstack.org" gname="standard"> -->
+        <gcse:search as_sitesearch="linux.xiao5tech.com" gname="standard">
         </gcse:search>
       </form>
      </div>
