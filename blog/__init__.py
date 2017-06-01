@@ -7,48 +7,35 @@ from flask import Flask, render_template, redirect, request
 
 from config import Config
 
+# get config file
 CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
 
+# config variables
 with open(BLOG['topics_json'], 'r') as json_file:
     TOPIC_DICT = json.load(json_file)
 
-CAT_DICT = {
-    "linux": {"linux": ["basic",
-                        "advance",
-                        "service",
-                        "lnmp",
-                        "shell",
-                        "java_env"]},
-    "python": {"python": ["advance",
-                          "django",
-                          "flask"]},
-    "javascript": {"javascript": ["basic",
-                                  "jquery",
-                                  "node.js"]},
-    "database": {"database": ["mysql",
-                              "oracle",
-                              "redis"]},
-    "devops": {"devops": ["vagrant",
-                          "git",
-                          "ansible"]},
-    "virtualization": {"virtualization":["docker",
-                                         "container",
-                                         "kvm"]},
-    }
-HREF_LIST = [x for x in CAT_DICT]
+with open(BLOG['index_json_file'], 'r') as json_file:
+    INDEX_JSON = json.load(json_file)
+
+HREF_LIST = []
+for i in INDEX_JSON:
+    base_cat = INDEX_JSON[i]["base_cat"]
+    if not base_cat in HREF_LIST:
+        HREF_LIST.append(base_cat)
+
+CAT_DICT = {}
+for i in INDEX_JSON:
+    base_cat = INDEX_JSON[i]["base_cat"]
+    if not base_cat in CAT_DICT.keys():
+        CAT_DICT[base_cat] = []
+    sub_cat = INDEX_JSON[i]["sub_cat"]
+    if not sub_cat in CAT_DICT[base_cat]:
+        CAT_DICT[base_cat].append(sub_cat)
 
 app = Flask(__name__)
 
 
-# @app.route('/')
-# def index():
-#     return redirect('/home',
-#                     HREF_LIST=HREF_LIST,
-#                     code=302)
-
-
-# @app.route('/home')
 @app.route('/')
 def homepage():
     return render_template("base/home.html",
@@ -58,10 +45,7 @@ def homepage():
 
 @app.route('/<cat>')
 def cat(cat):
-    uri_cat = request.full_path.split('/')[1].split('?')[0]
-    cat = CAT_DICT[uri_cat].keys()[0]
-    sub_cats = CAT_DICT[uri_cat][cat]
-    print cat
+    sub_cats = CAT_DICT[cat]
     return render_template("base/categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
                            HREF_LIST=HREF_LIST,
@@ -71,16 +55,12 @@ def cat(cat):
 
 @app.route('/<cat1>/<cat2>')
 def sub_content(cat1, cat2):
-    page = '/'.join([cat1, cat2])
-    uri_cat = request.full_path.split('/')[1].split('?')[0]
-    uri_subcat = request.full_path.split('/')[2].split('?')[0]
-    cat = CAT_DICT[uri_cat].keys()[0]
-    sub_cats = CAT_DICT[uri_cat][cat]
+    sub_cats = CAT_DICT[cat1]
     return render_template("base/sub_categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
                            HREF_LIST=HREF_LIST,
-                           uri_subcat=uri_subcat,
-                           cat=cat,
+                           uri_subcat=cat2,
+                           cat=cat1,
                            sub_cats=sub_cats)
 
 
@@ -88,16 +68,12 @@ def sub_content(cat1, cat2):
 def content(cat1, cat2, topic):
     topic = topic + ".html"
     page = '/'.join([cat1, cat2, topic])
-
-    uri_cat = request.full_path.split('/')[1].split('?')[0]
-    uri_subcat = request.full_path.split('/')[2].split('?')[0]
-    cat = CAT_DICT[uri_cat].keys()[0]
-    sub_cats = CAT_DICT[uri_cat][cat]
+    sub_cats = CAT_DICT[cat1]
     return render_template(page,
                            TOPIC_DICT=TOPIC_DICT,
                            HREF_LIST=HREF_LIST,
-                           uri_subcat=uri_subcat,
-                           cat=cat,
+                           uri_subcat=cat2,
+                           cat=cat1,
                            sub_cats=sub_cats)
 
 

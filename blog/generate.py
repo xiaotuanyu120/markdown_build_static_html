@@ -26,15 +26,18 @@ class HighlightRenderer(mistune.Renderer):
         return highlight(code, lexer, formatter)
 
 
-class MdGenerator(object):
+class Md2Html(object):
     def __init__(self, md_dir=None, html_dir=None):
         """
-        md_dir: markdown file's absolute path direction
-        html_dir: html file's absolute path direction
-        extend_file: included in generated html file
-        topics_file: topics file that include md title and html path
-        index_json_file: store all md_info in json format
-        md_info: a dict that store all information of markdown file
+        Md2Html collect md_info and convert md to html
+
+        initial items:
+            md_dir: markdown file's absolute path direction
+            html_dir: html file's absolute path direction
+            extend_file: included in generated html file
+            topics_file: topics file that include md title and html path
+            index_json_file: store all md_info in json format
+            md_info: a dict that store all information of markdown file
         """
         default_md_dir = BLOG["md_dir"]
         default_html_dir = BLOG["html_dir"]
@@ -53,32 +56,29 @@ class MdGenerator(object):
         self.topics_json = BLOG["topics_json"]
         self.index_json_file = BLOG["index_json_file"]
 
-    def initial_md_info(self):
-        '''
-        initial all markdown file's information
-        '''
-        for md_pname, sub_dir, md_fnames in os.walk(self.md_dir):
-            for md_fname in md_fnames:
-                md_fname_spl = md_fname.split('.')
-                if len(md_fname_spl) > 1 and md_fname_spl[-1] == "md":
-                    md_cname = os.path.join(md_pname, md_fname)
-                    html_fname = md_fname.rsplit(".md")[0] + ".html"
-                    self.md_info[md_cname] = {}
-                    self.md_info[md_cname]["md_fname"] = md_fname
-                    self.md_info[md_cname]["md_pname"] = md_pname
-                    self.md_info[md_cname]['html_fname'] = html_fname
+        # collect md info and html info first
+        self.md_info_coll()
+        self.html_info_coll()
 
-    def md_generate(self):
+    def md_info_coll(self):
         '''
-        包含了最重要的逻辑部分：
-            1、获取md文件列表
-            2、分析header和检查其合法性
-            3、分析并创建html文件需要保存的目录
-            4、生成html文件
+        collect markdown file's information
         '''
+        for md_path, sub_dir, mds in os.walk(self.md_dir):
+            for md in mds:
+                md_spl = md.split('.')
+                if len(md_spl) > 1 and md_spl[-1] == "md":
+                    md_cname = os.path.join(md_path, md)
+                    html = md.rsplit(".md")[0] + ".html"
+                    self.md_info[md_cname] = {}
+                    self.md_info[md_cname]["md"] = md
+                    self.md_info[md_cname]["md_path"] = md_path
+                    self.md_info[md_cname]['html'] = html
+
+    def html_info_coll(self):
         md_cnames = self.md_info.keys()
         for md_cname in md_cnames:
-            # parse and check header
+            # clear header
             result = _header_parse(md_cname)
             if result['error']:
                 del self.md_info[md_cname]
@@ -86,7 +86,7 @@ class MdGenerator(object):
             else:
                 self.md_info[md_cname]['headers'] = result['data']
 
-            # check categories
+            # clear categories
             categories = self.md_info[md_cname]['headers']['categories']
             cate = _categories_check(md_cname, categories)
             if cate['error']:
@@ -96,18 +96,32 @@ class MdGenerator(object):
                 self.md_info[md_cname]['base_cat'] = cate['data']['base_cat']
                 self.md_info[md_cname]['sub_cat'] = cate['data']['sub_cat']
 
-            # get the html complete path
-            self.md_info[md_cname]["html_pname"] = \
+            # collect html complete path
+            self.md_info[md_cname]["html_path"] = \
                 os.path.join(self.html_dir, categories)
-            html_pname = self.md_info[md_cname]["html_pname"]
-            html_fname = self.md_info[md_cname]["html_fname"]
+            html_path = self.md_info[md_cname]["html_path"]
+            html = self.md_info[md_cname]["html"]
             self.md_info[md_cname]['html_cname'] = \
-                os.path.join(html_pname, html_fname)
-            html_cname = self.md_info[md_cname]["html_cname"]
-            if not os.path.isdir(html_pname):
-                os.makedirs(html_pname)
+                os.path.join(html_path, html)
+
+    def html_gen(self):
+        '''
+        包含了最重要的逻辑部分：
+            1、获取md文件列表
+            2、分析header和检查其合法性
+            3、分析并创建html文件需要保存的目录
+            4、生成html文件
+        '''
+        # start generate html
+        md_cnames = self.md_info.keys()
+        for md_cname in md_cnames:
+            # prepare html_path
+            html_path = self.md_info[md_cname]["html_path"]
+            if not os.path.isdir(html_path):
+                os.makedirs(html_path)
 
             # if html_file exist and newer than md file, skip generate it
+            html_cname = self.md_info[md_cname]["html_cname"]
             if os.path.isfile(html_cname):
                 html_mtime = os.path.getmtime(html_cname)
                 md_mtime = os.path.getmtime(md_cname)
@@ -130,6 +144,11 @@ class MdGenerator(object):
             else:
                 del self.md_info[md_cname]
                 continue
+
+
+class IndexJsonGen(Md2Html):
+    def __init__(self):
+        super(IndexJsonGen, self).__init__()
 
     def topic_index(self):
         '''
@@ -306,11 +325,11 @@ def _sort_key(in_list):
 
 
 def main(md_dir=None, html_dir=None):
-    md_gen = MdGenerator(md_dir=md_dir, html_dir=html_dir)
-    md_gen.initial_md_info()
-    md_gen.md_generate()
-    md_gen.index_json()
-    md_gen.topic_json()
+    M2H = Md2Html(md_dir=md_dir, html_dir=html_dir)
+    M2H.html_gen()
+    IJG = IndexJsonGen()
+    IJG.index_json()
+    IJG.topic_json()
 
 
 if __name__ == "__main__":
