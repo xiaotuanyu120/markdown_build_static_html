@@ -3,7 +3,8 @@
 import os
 import json
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, url_for
+from flask import send_from_directory
 
 from config import Config
 
@@ -17,12 +18,6 @@ with open(BLOG['topics_json'], 'r') as json_file:
 
 with open(BLOG['index_json_file'], 'r') as json_file:
     INDEX_JSON = json.load(json_file)
-
-HREF_LIST = []
-for i in INDEX_JSON:
-    base_cat = INDEX_JSON[i]["base_cat"]
-    if not base_cat in HREF_LIST:
-        HREF_LIST.append(base_cat)
 
 CAT_DICT = {}
 for i in INDEX_JSON:
@@ -39,8 +34,13 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     return render_template("base/home.html",
-                            TOPIC_DICT=TOPIC_DICT,
-                            HREF_LIST=HREF_LIST)
+                            TOPIC_DICT=TOPIC_DICT)
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='images/favicon.ico')
 
 
 @app.route('/<cat>')
@@ -48,7 +48,6 @@ def cat(cat):
     sub_cats = CAT_DICT[cat]
     return render_template("base/categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
-                           HREF_LIST=HREF_LIST,
                            cat=cat,
                            sub_cats=sub_cats)
 
@@ -58,7 +57,6 @@ def sub_content(cat1, cat2):
     sub_cats = CAT_DICT[cat1]
     return render_template("base/sub_categories_base.html",
                            TOPIC_DICT=TOPIC_DICT,
-                           HREF_LIST=HREF_LIST,
                            uri_subcat=cat2,
                            cat=cat1,
                            sub_cats=sub_cats)
@@ -71,7 +69,6 @@ def content(cat1, cat2, topic):
     sub_cats = CAT_DICT[cat1]
     return render_template(page,
                            TOPIC_DICT=TOPIC_DICT,
-                           HREF_LIST=HREF_LIST,
                            uri_subcat=cat2,
                            cat=cat1,
                            sub_cats=sub_cats)
@@ -80,5 +77,4 @@ def content(cat1, cat2, topic):
 @app.route('/contact')
 def contact():
     return render_template("base/contact.html",
-                           HREF_LIST=HREF_LIST,
                            TOPIC_DICT=TOPIC_DICT)

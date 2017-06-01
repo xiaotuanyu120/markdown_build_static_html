@@ -143,7 +143,7 @@ ga('send', 'pageview');
         </li>
         <li class="divider" role="presentation">
         </li>
-        {% for l in HREF_LIST %}
+        {% for l in TOPIC_DICT.keys() %}
         <li role="presentation">
          <a href="/{{ l }}" role="menuitem" tabindex="-1">
           {{ l }}
@@ -281,7 +281,7 @@ ga('send', 'pageview');
          <li class="dropdown-header" role="presentation">
           文档分类
          </li>
-         {% for l in HREF_LIST %}
+         {% for l in TOPIC_DICT.keys() %}
          <li role="presentation">
           <a href="{{ l }}" role="menuitem" tabindex="-1">
            {{ l }}

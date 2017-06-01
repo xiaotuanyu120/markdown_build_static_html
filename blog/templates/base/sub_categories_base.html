@@ -123,7 +123,7 @@
 				<button href="#" type="button" data-toggle="dropdown" class="btn docs-sidebar-release-select">Xiao5tech Docs<i class="fa fa-caret-down"></i></button>
 		    <ul class="dropdown-menu docs-sidebar-dropdown" role="menu" aria-labelledby="dLabel">
 		      <li role="presentation" class="dropdown-header">完整文档分类</li>
-          {% for l in HREF_LIST %}
+          {% for l in TOPIC_DICT.keys() %}
           <li role="presentation"><a role="menuitem" tabindex="-1" href="/{{ l }}">{{ l }}</a></li>
           {% endfor %}
 		      <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="">User Guides</a></li>
