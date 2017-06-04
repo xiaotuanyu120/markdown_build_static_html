@@ -444,7 +444,7 @@ ga('send', 'pageview');
       // Add file names and captions to doc-characters.json
     $.getJSON("/static/js/doc-characters.json", function(data) {
       var item = data.images[Math.floor(Math.random()*data.images.length)];
-      $('<img src="/static/js/../images/docs/' + item.image + '">').appendTo('#superuser-img');
+      $('<img src="/static/js/../images/superuser-img/' + item.image + '">').appendTo('#superuser-img');
       $('<p>' + item.caption + '<strong>Xiao5tech docs</strong></p>').appendTo('#superuser-img');
     });
   </script>
