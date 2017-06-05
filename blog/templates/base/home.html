@@ -264,9 +264,11 @@ ga('send', 'pageview');
        <p>
         最新发布的文档
        </p>
-       <a href="">
-        这是一篇最新发布的文档
-       </a>
+       {% for page, page_url in LATEST_PAGE.items() %}
+       <a href="{{ page_url }}">
+        {{ page }}
+      </a><br>
+       {% endfor %}
       </div>
       <div class="docs-link-sections">
        <h3 id="install-guides">

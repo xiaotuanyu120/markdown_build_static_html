@@ -1,32 +1,19 @@
 # coding=utf-8
 
 import os
-import json
 
 from flask import Flask, render_template, redirect, request, url_for
 from flask import send_from_directory
 
-from config import Config
+from page_info import PageInfo
 
-# get config file
-CONF_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BLOG = Config(os.path.join(CONF_DIR, 'conf'), 'blog.ini').conf('blog')
 
-# config variables
-with open(BLOG['topics_json'], 'r') as json_file:
-    TOPIC_DICT = json.load(json_file)
+# get all variables
+p_info = PageInfo()
+TOPIC_DICT = p_info.get_topic()
+CAT_DICT = p_info.get_cat()
+LATEST_PAGE = p_info.get_latest_page()
 
-with open(BLOG['index_json_file'], 'r') as json_file:
-    INDEX_JSON = json.load(json_file)
-
-CAT_DICT = {}
-for i in INDEX_JSON:
-    base_cat = INDEX_JSON[i]["base_cat"]
-    if not base_cat in CAT_DICT.keys():
-        CAT_DICT[base_cat] = []
-    sub_cat = INDEX_JSON[i]["sub_cat"]
-    if not sub_cat in CAT_DICT[base_cat]:
-        CAT_DICT[base_cat].append(sub_cat)
 
 app = Flask(__name__)
 
@@ -34,7 +21,8 @@ app = Flask(__name__)
 @app.route('/')
 def homepage():
     return render_template("base/home.html",
-                            TOPIC_DICT=TOPIC_DICT)
+                            TOPIC_DICT=TOPIC_DICT,
+                            LATEST_PAGE=LATEST_PAGE)
 
 
 @app.route('/favicon.ico')
