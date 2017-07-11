@@ -176,15 +176,20 @@ class IndexJsonGen(Md2Html):
             html_link = html_cname.split(self.html_dir)[1]
 
             # initial base_cat to a dict
-            if not base_cat in topic_data.keys():
-                topic_data[base_cat] = {}
+            # if not base_cat in topic_data.keys():
+            #     topic_data[base_cat] = {}
 
             # initial sub_cat to a list
-            if not sub_cat in topic_data[base_cat].keys():
-                topic_data[base_cat][sub_cat] = []
+            # if not sub_cat in topic_data[base_cat].keys():
+            #     topic_data[base_cat][sub_cat] = []
 
             # save title, html_link and sort it
-            topic_data[base_cat][sub_cat].append([title, html_link])
+            # topic_data[base_cat][sub_cat].append([title, html_link])
+
+            # initial base_cat to a dict and initial sub_cat to a list
+            # save title, html_link and sort it
+            topic_data.setdefault(base_cat, {}).setdefault(sub_cat, []).append(
+                [title, html_link])
             topic_data[base_cat][sub_cat].sort(key=_sort_key)
         topic_data = json.dumps(topic_data, indent=4)
         with open(self.topics_json, 'w') as f:
